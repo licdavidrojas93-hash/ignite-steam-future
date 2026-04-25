@@ -1,40 +1,10 @@
 import { motion } from "framer-motion";
 import { Users } from "lucide-react";
-
-const clients = [
-  {
-    category: "Colegios",
-    icon: "🏫",
-    organizations: [
-      "Colegio Marista",
-      "Escuela Primaria Benito Juárez",
-      "Instituto Tecnológico",
-      "Colegio Independencia",
-    ],
-  },
-  {
-    category: "Empresas",
-    icon: "🏢",
-    organizations: [
-      "Sonora Tech Solutions",
-      "Desarrollo Integral Hermosillo",
-      "Innovación Empresarial SA",
-      "Industria Local 2024",
-    ],
-  },
-  {
-    category: "Instituciones",
-    icon: "🏛️",
-    organizations: [
-      "Ayuntamiento de Hermosillo",
-      "IMEC (Instituto Mexicano de Educación en Ciencia)",
-      "Secretaría de Educación Estatal",
-      "Comisión de Ciencia",
-    ],
-  },
-];
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const Collaborators = () => {
+  const c = useSiteContent("collaborators");
+
   return (
     <section id="colaboradores" className="py-12 md:py-16">
       <div className="container">
@@ -47,21 +17,18 @@ const Collaborators = () => {
         >
           <div className="flex items-center justify-center gap-2 mb-3">
             <Users className="h-5 w-5 text-secondary" />
-            <p className="text-sm font-bold uppercase tracking-widest text-secondary">Nuestros aliados</p>
+            <p className="text-sm font-bold uppercase tracking-widest text-secondary">{c.eyebrow}</p>
           </div>
           <h2 className="font-display text-4xl md:text-5xl">
-            Quiénes han <span className="text-gradient-warm">confiado en nosotros</span>
+            {c.title}<span className="text-gradient-warm">{c.titleHighlight}</span>
           </h2>
-          <p className="mt-5 text-lg text-muted-foreground">
-            Trabajamos con instituciones, empresas y gobiernos que comparten nuestra visión de 
-            una educación accesible, integral y transformadora para todos los niños y niñas.
-          </p>
+          <p className="mt-5 text-lg text-muted-foreground">{c.description}</p>
         </motion.div>
 
         <div className="grid gap-8 md:grid-cols-3">
-          {clients.map((group, groupIdx) => (
+          {c.groups.map((group, groupIdx) => (
             <motion.div
-              key={group.category}
+              key={`${group.category}-${groupIdx}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -76,7 +43,7 @@ const Collaborators = () => {
               <ul className="space-y-3">
                 {group.organizations.map((org, idx) => (
                   <motion.li
-                    key={org}
+                    key={`${org}-${idx}`}
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -99,18 +66,13 @@ const Collaborators = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-16 rounded-3xl bg-gradient-to-r from-primary/15 via-secondary/15 to-accent/15 p-10 md:p-14 border border-primary/20 text-center"
         >
-          <h3 className="font-display text-2xl md:text-3xl mb-4">
-            ¿Tu institución también quiere colaborar?
-          </h3>
-          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Creemos en la fuerza de la colaboración. Si compartes nuestra misión de llevar educación 
-            STEAM a más niños y niñas, nos encantaría trabajar contigo.
-          </p>
+          <h3 className="font-display text-2xl md:text-3xl mb-4">{c.ctaTitle}</h3>
+          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">{c.ctaDescription}</p>
           <a
             href="#contacto"
             className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-gradient-warm text-white font-semibold hover:shadow-lg transition transform hover:scale-105"
           >
-            Contáctanos
+            {c.ctaButton}
             <span>→</span>
           </a>
         </motion.div>

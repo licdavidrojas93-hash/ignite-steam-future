@@ -7,21 +7,19 @@ import inspirador3 from "@/assets/team/inspirador-3.jpg";
 import inspirador4 from "@/assets/team/inspirador-4.jpg";
 import inspirador5 from "@/assets/team/inspirador-5.jpg";
 import inspirador6 from "@/assets/team/inspirador-6.jpg";
+import { useSiteContent } from "@/hooks/useSiteContent";
+
+const FALLBACK_INSPIRADORES = [
+  inspirador1, inspirador2, inspirador3, inspirador4, inspirador5, inspirador6,
+];
 
 const Team = () => {
-  const inspiradores = [
-    { name: "Inspirador 1", role: "Maestro STEAM", photo: inspirador1 },
-    { name: "Inspirador 2", role: "Maestro STEAM", photo: inspirador2 },
-    { name: "Inspirador 3", role: "Maestro STEAM", photo: inspirador3 },
-    { name: "Inspirador 4", role: "Maestro STEAM", photo: inspirador4 },
-    { name: "Inspirador 5", role: "Maestro STEAM", photo: inspirador5 },
-    { name: "Inspirador 6", role: "Maestro STEAM", photo: inspirador6 },
-  ];
+  const c = useSiteContent("team");
+  const founderImg = c.founderPhoto || nitziaPhoto;
 
   return (
     <section id="quienes-somos" className="py-16 md:py-20">
       <div className="container">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -31,14 +29,13 @@ const Team = () => {
         >
           <div className="flex items-center justify-center gap-2 mb-3">
             <Heart className="h-5 w-5 text-secondary" />
-            <p className="text-sm font-bold uppercase tracking-widest text-secondary">Nuestro equipo</p>
+            <p className="text-sm font-bold uppercase tracking-widest text-secondary">{c.eyebrow}</p>
           </div>
           <h2 className="font-display text-4xl md:text-5xl">
-            Quiénes <span className="text-gradient-warm">somos</span>
+            {c.title}<span className="text-gradient-warm">{c.titleHighlight}</span>
           </h2>
         </motion.div>
 
-        {/* Fundadora */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -48,25 +45,18 @@ const Team = () => {
         >
           <div className="grid gap-8 md:grid-cols-2 items-center">
             <div className="order-2 md:order-1">
-              <p className="text-sm font-bold uppercase tracking-widest text-primary mb-3">Fundadora</p>
-              <h3 className="font-display text-3xl md:text-4xl mb-4">Nitzía Gradias</h3>
-              <p className="text-muted-foreground mb-6">
-                Nitzía es una apasionada educadora con más de X años de experiencia en educación STEAM. 
-                Fundó Niños STEAM con la visión de democratizar el acceso a la ciencia y tecnología 
-                para todos los niños y niñas, sin importar su origen socioeconómico.
-              </p>
-              <p className="text-muted-foreground">
-                Su compromiso con la educación inclusiva y de calidad ha llevado a Niños STEAM a impactar 
-                la vida de cientos de niños en toda la región.
-              </p>
+              <p className="text-sm font-bold uppercase tracking-widest text-primary mb-3">{c.founderEyebrow}</p>
+              <h3 className="font-display text-3xl md:text-4xl mb-4">{c.founderName}</h3>
+              <p className="text-muted-foreground mb-6">{c.founderBio1}</p>
+              <p className="text-muted-foreground">{c.founderBio2}</p>
             </div>
             <div className="order-1 md:order-2">
               <div className="relative">
                 <div className="absolute -inset-4 bg-gradient-hero opacity-20 blur-2xl rounded-full" />
                 <div className="relative overflow-hidden rounded-3xl shadow-medium aspect-square">
                   <img
-                    src={nitziaPhoto}
-                    alt="Nitzía Gradias - Fundadora"
+                    src={founderImg}
+                    alt={`${c.founderName} - ${c.founderEyebrow}`}
                     className="h-full w-full object-cover"
                   />
                 </div>
@@ -75,7 +65,6 @@ const Team = () => {
           </div>
         </motion.div>
 
-        {/* Inspiradores */}
         <div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -86,21 +75,18 @@ const Team = () => {
           >
             <div className="flex items-center justify-center gap-2 mb-3">
               <Users className="h-5 w-5 text-primary" />
-              <p className="text-sm font-bold uppercase tracking-widest text-primary">Nuestro motor</p>
+              <p className="text-sm font-bold uppercase tracking-widest text-primary">{c.inspiradoresEyebrow}</p>
             </div>
             <h3 className="font-display text-3xl md:text-4xl">
-              Los <span className="text-gradient-warm">Inspiradores</span>
+              {c.inspiradoresTitle}<span className="text-gradient-warm">{c.inspiradoresTitleHighlight}</span>
             </h3>
-            <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-              Nuestros maestros STEAM son profesionales dedicados que transforman la curiosidad 
-              en conocimiento, guiando a cada niño en su viaje de aprendizaje.
-            </p>
+            <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">{c.inspiradoresDescription}</p>
           </motion.div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {inspiradores.map((person, idx) => (
+            {c.inspiradores.map((person, idx) => (
               <motion.div
-                key={person.name}
+                key={`${person.name}-${idx}`}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -109,7 +95,7 @@ const Team = () => {
               >
                 <div className="relative overflow-hidden rounded-2xl aspect-square mb-4">
                   <img
-                    src={person.photo}
+                    src={person.photo || FALLBACK_INSPIRADORES[idx % FALLBACK_INSPIRADORES.length]}
                     alt={person.name}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />

@@ -6,8 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Pencil, Trash2, Plus, LogOut, X } from "lucide-react";
+import SiteContentEditor from "@/components/admin/SiteContentEditor";
 
 interface Post {
   id: string;
@@ -135,12 +137,23 @@ const Admin = () => {
       </header>
 
       <main className="container py-10">
-        <div className="mb-6 flex items-center justify-between">
-          <h2 className="font-display text-3xl">Notas y blogs</h2>
-          <Button variant="hero" onClick={openNew}>
-            <Plus className="h-4 w-4" /> Nueva nota
-          </Button>
-        </div>
+        <Tabs defaultValue="content">
+          <TabsList className="mb-6">
+            <TabsTrigger value="content">Contenido del sitio</TabsTrigger>
+            <TabsTrigger value="blog">Notas y blog</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="content">
+            <SiteContentEditor />
+          </TabsContent>
+
+          <TabsContent value="blog">
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="font-display text-3xl">Notas y blogs</h2>
+              <Button variant="hero" onClick={openNew}>
+                <Plus className="h-4 w-4" /> Nueva nota
+              </Button>
+            </div>
 
         {loading ? (
           <p className="text-muted-foreground">Cargando...</p>

@@ -163,6 +163,24 @@
     @apply bg-gradient-to-b from-primary/10 via-background to-background;
   }
 
+  /* Gradiente rosa → azul para botones hero */
+  .bg-gradient-warm {
+    background: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--primary)) 100%);
+  }
+
+  /* Gradiente azul → violeta para botones cool */
+  .bg-gradient-cool {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--art)) 100%);
+  }
+
+  .shadow-warm {
+    box-shadow: 0 4px 15px -2px rgba(255, 0, 102, 0.35), 0 2px 8px -1px rgba(74, 144, 226, 0.20);
+  }
+
+  .shadow-glow {
+    box-shadow: 0 8px 25px -3px rgba(255, 0, 102, 0.50), 0 4px 12px -2px rgba(74, 144, 226, 0.35);
+  }
+
   /* Sombras suaves */
   .shadow-soft {
     box-shadow: 0 4px 12px -2px rgba(74, 144, 226, 0.12), 

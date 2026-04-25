@@ -1,94 +1,102 @@
 import { motion } from "framer-motion";
-import { Heart, GraduationCap, Sparkles } from "lucide-react";
+import { Sparkles, GraduationCap, Heart } from "lucide-react";
 
-/**
- * Sección de Donaciones.
- *
- * 👉 Para integrar tu botón de pago (PayPal, Mercado Pago, Stripe, Conekta, etc.):
- * Reemplaza el contenido del div con id="donation-button-slot" más abajo
- * con el código HTML/JS que te entregue tu proveedor de pagos.
- */
+const tiers = [
+  {
+    icon: Sparkles,
+    amount: "$200 MXN",
+    title: "Material de un taller",
+    description: "Apoyas a un grupo de niños con los materiales necesarios para una sesión STEAM.",
+    color: "text-accent",
+    bgColor: "bg-accent/10",
+  },
+  {
+    icon: GraduationCap,
+    amount: "$500 MXN",
+    title: "Beca un mes a un niño",
+    description: "Patrocinas un mes completo de talleres STEAM para un niño o niña.",
+    color: "text-primary",
+    bgColor: "bg-primary/10",
+  },
+  {
+    icon: Heart,
+    amount: "$1,500 MXN",
+    title: "Beca un trimestre completo",
+    description: "Cambias la vida de un niño con tres meses de aprendizaje STEAM continuo.",
+    color: "text-secondary",
+    bgColor: "bg-secondary/10",
+    featured: true,
+  },
+];
 
 const Donations = () => {
   return (
-    <section id="donaciones" className="relative overflow-hidden py-20 md:py-28">
-      {/* Fondo decorativo */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-hero opacity-95" />
-      <div className="pointer-events-none absolute -top-20 -right-20 h-80 w-80 bg-accent/30 blob animate-blob" />
-      <div className="pointer-events-none absolute -bottom-20 -left-20 h-72 w-72 bg-secondary/30 blob animate-blob" style={{ animationDelay: "3s" }} />
-
-      <div className="container relative">
-        <div className="mx-auto max-w-3xl text-center text-primary-foreground">
-          <motion.span
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", duration: 0.7 }}
-            className="inline-flex items-center gap-2 rounded-full bg-card/20 px-4 py-2 text-sm font-semibold backdrop-blur"
-          >
-            <Heart className="h-4 w-4 fill-current" /> Becar a un niño STEAM
-          </motion.span>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mt-5 font-display text-4xl md:text-6xl"
-          >
+    <section id="donaciones" className="py-16 md:py-20 bg-gradient-to-b from-background via-primary/5 to-background">
+      <div className="container">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto max-w-3xl text-center mb-12"
+        >
+          <p className="text-sm font-bold uppercase tracking-widest text-primary mb-3">Becar a un niño STEAM</p>
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
             Tu donativo abre <span className="text-accent">un futuro</span>
-          </motion.h2>
-
-          <p className="mt-6 text-lg opacity-95">
-            Con tu apoyo financiamos materiales, talleres y becas para que más niñas y niños descubran su pasión por la ciencia y el arte. Cada peso suma. Cada beca cambia una vida.
+          </h2>
+          <p className="text-lg text-foreground">
+            Con tu apoyo financiamos materiales, talleres y becas para que más niñas y niños 
+            descubran su pasión por la ciencia y el arte. Cada peso suma. Cada beca cambia una vida.
           </p>
+        </motion.div>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {[
-              { icon: Sparkles, title: "$200 MXN", text: "Material de un taller" },
-              { icon: GraduationCap, title: "$500 MXN", text: "Beca un mes a un niño" },
-              { icon: Heart, title: "$1,500 MXN", text: "Beca un trimestre completo" },
-            ].map((c, i) => (
-              <motion.div
-                key={c.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="rounded-2xl bg-card/15 p-6 backdrop-blur-md ring-1 ring-card/30"
-              >
-                <c.icon className="mx-auto h-7 w-7 text-accent" />
-                <p className="mt-3 font-display text-3xl font-bold">{c.title}</p>
-                <p className="text-sm opacity-90">{c.text}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* === BOTÓN DE PAGO ===
-              Reemplaza el contenido de este bloque con tu propio código HTML.
-              Por ejemplo:
-              <form action="https://www.paypal.com/donate" method="post" target="_top">
-                <input type="hidden" name="business" value="TU_CORREO" />
-                ...
-              </form>
-          */}
-          <div className="mt-12 flex flex-col items-center">
-            <div
-              id="donation-button-slot"
-              className="rounded-2xl bg-card p-8 text-card-foreground shadow-medium"
+        <div className="grid gap-8 md:grid-cols-3 mb-12">
+          {tiers.map((tier, idx) => (
+            <motion.div
+              key={tier.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className={`relative rounded-3xl bg-card p-8 shadow-soft transition-all hover:shadow-medium hover:-translate-y-2 ${
+                tier.featured ? "ring-2 ring-secondary/50" : ""
+              }`}
             >
-              <p className="font-display text-xl font-bold">Aquí va tu botón de donación</p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Reemplaza el contenido de <code className="rounded bg-muted px-1.5 py-0.5 text-xs">#donation-button-slot</code> en{" "}
-                <code className="rounded bg-muted px-1.5 py-0.5 text-xs">Donations.tsx</code> con tu código HTML de pago.
+              <div className={`inline-flex h-16 w-16 items-center justify-center rounded-2xl ${tier.bgColor} mb-6`}>
+                <tier.icon className={`h-8 w-8 ${tier.color}`} />
+              </div>
+              
+              <p className={`font-display text-4xl font-bold ${tier.color} mb-2`}>
+                {tier.amount}
               </p>
-            </div>
-            <p className="mt-6 text-sm opacity-80">
-              ¿Quieres donar otra cantidad o aliarte como empresa? Escríbenos a{" "}
-              <a href="mailto:contacto@ninos-steam.org" className="underline">contacto@ninos-steam.org</a>
-            </p>
-          </div>
+              <h3 className="font-display text-xl font-bold text-foreground mb-3">
+                {tier.title}
+              </h3>
+              <p className="text-muted-foreground">
+                {tier.description}
+              </p>
+            </motion.div>
+          ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto max-w-2xl text-center"
+        >
+          <div className="rounded-3xl bg-card p-8 md:p-10 shadow-medium flex justify-center">
+            <a 
+              href="https://www.paypal.com/donate/?hosted_button_id=NUN5PLXX6JAUS"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-secondary hover:bg-accent hover:text-foreground text-white font-bold text-base px-10 py-6 rounded-full shadow-playful transition-all duration-300 hover:scale-105"
+            >
+              Donar ahora 💙
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

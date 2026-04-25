@@ -24,7 +24,7 @@ const items = [
 
 const Mission = () => {
   return (
-    <section id="mision" className="py-20 md:py-28">
+    <section id="mision" className="py-12 md:py-16">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

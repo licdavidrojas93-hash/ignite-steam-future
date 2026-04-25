@@ -14,8 +14,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Fraunces", "Georgia", "serif"],
-        sans: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+        // Fuente divertida para títulos
+        display: ["Fredoka", "Poppins", "system-ui", "sans-serif"],
+        // Fuente clara para textos
+        sans: ["Inter", "Plus Jakarta Sans", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

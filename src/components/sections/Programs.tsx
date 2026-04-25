@@ -26,7 +26,7 @@ const programs = [
 
 const Programs = () => {
   return (
-    <section id="programas" className="bg-gradient-soft py-20 md:py-28">
+    <section id="programas" className="bg-gradient-soft py-12 md:py-16">
       <div className="container">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-bold uppercase tracking-widest text-secondary">Dónde trabajamos</p>

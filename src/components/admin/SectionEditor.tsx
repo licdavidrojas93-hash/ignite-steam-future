@@ -48,7 +48,7 @@ function SectionEditor<K extends SectionKey>({ sectionKey, title, children }: Pr
     setSaving(true);
     const { error } = await supabase
       .from("site_content")
-      .upsert([{ section_key: sectionKey, data: value as unknown as Record<string, unknown> }]);
+      .upsert([{ section_key: sectionKey, data: JSON.parse(JSON.stringify(value)) }]);
     setSaving(false);
     if (error) return toast.error(error.message);
     toast.success("Cambios guardados ✓");

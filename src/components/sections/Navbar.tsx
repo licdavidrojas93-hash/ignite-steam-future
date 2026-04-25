@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoSteam from "@/assets/logo-steam.png";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const c = useSiteContent("navbar");
 
   const links = [
     { href: "#que-es-steam", label: "¿Qué es STEAM?" },
@@ -51,8 +53,8 @@ const Navbar = () => {
           size="sm"
           asChild
         >
-          <a href="https://www.paypal.com/donate/?hosted_button_id=NUN5PLXX6JAUS" target="_blank" rel="noopener noreferrer">
-            Donar ahora
+          <a href={c.ctaUrl} target="_blank" rel="noopener noreferrer">
+            {c.ctaText}
           </a>
         </Button>
 
@@ -81,8 +83,8 @@ const Navbar = () => {
               className="mt-3 bg-secondary hover:bg-accent hover:text-foreground text-white font-bold rounded-full"
               asChild
             >
-              <a href="https://www.paypal.com/donate/?hosted_button_id=NUN5PLXX6JAUS" target="_blank" rel="noopener noreferrer">
-                Donar ahora
+              <a href={c.ctaUrl} target="_blank" rel="noopener noreferrer">
+                {c.ctaText}
               </a>
             </Button>
           </div>

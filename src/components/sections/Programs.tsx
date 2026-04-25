@@ -2,46 +2,28 @@ import { motion } from "framer-motion";
 import schools from "@/assets/program-schools.jpg";
 import companies from "@/assets/program-companies.jpg";
 import community from "@/assets/program-community.jpg";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
-const programs = [
-  {
-    img: schools,
-    tag: "Escuelas",
-    title: "Talleres STEAM en escuelas",
-    text: "Llevamos sesiones prácticas y materiales a planteles públicos y privados, complementando el currículo con experiencias memorables.",
-  },
-  {
-    img: companies,
-    tag: "Empresas",
-    title: "Programas para hijos de trabajadores",
-    text: "Diseñamos programas para empresas comprometidas con sus colaboradores y sus familias. Beneficio social con impacto medible.",
-  },
-  {
-    img: community,
-    tag: "Comunidad",
-    title: "Espacios públicos y apoyo social",
-    text: "Activaciones gratuitas en colonias, parques y centros comunitarios, con participación de gobiernos locales y aliados sociales.",
-  },
-];
+const FALLBACK_IMAGES = [schools, companies, community];
 
 const Programs = () => {
+  const c = useSiteContent("programs");
+
   return (
     <section id="programas" className="bg-gradient-soft py-12 md:py-16">
       <div className="container">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-bold uppercase tracking-widest text-secondary">Dónde trabajamos</p>
+          <p className="text-sm font-bold uppercase tracking-widest text-secondary">{c.eyebrow}</p>
           <h2 className="mt-3 font-display text-4xl md:text-5xl">
-            Programas con <span className="text-gradient-warm">impacto real</span>
+            {c.title}<span className="text-gradient-warm">{c.titleHighlight}</span>
           </h2>
-          <p className="mt-5 text-lg text-muted-foreground">
-            Nos sumamos a escuelas, empresas y autoridades para que la educación STEAM llegue a quienes más la necesitan.
-          </p>
+          <p className="mt-5 text-lg text-muted-foreground">{c.description}</p>
         </div>
 
         <div className="mt-16 grid gap-8 md:grid-cols-3">
-          {programs.map((p, i) => (
+          {c.programs.map((p, i) => (
             <motion.article
-              key={p.title}
+              key={`${p.title}-${i}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -50,7 +32,7 @@ const Programs = () => {
             >
               <div className="aspect-[4/3] overflow-hidden">
                 <img
-                  src={p.img}
+                  src={p.image || FALLBACK_IMAGES[i % FALLBACK_IMAGES.length]}
                   alt={p.title}
                   width={1024}
                   height={768}

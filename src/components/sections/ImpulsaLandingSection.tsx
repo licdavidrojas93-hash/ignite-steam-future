@@ -9,9 +9,42 @@ import {
   Target,
 } from "lucide-react";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { useImpulsaTiers, useImpulsaSections } from "@/hooks/useImpulsa";
+
+const formatPrice = (amount: number | null, currency: string) => {
+  if (amount == null) return "";
+  try {
+    return new Intl.NumberFormat("es-MX", {
+      style: "currency",
+      currency: currency || "MXN",
+      maximumFractionDigits: 0,
+    }).format(amount);
+  } catch {
+    return `$${amount} ${currency}`;
+  }
+};
 
 const ImpulsaLandingSection = () => {
   const c = useSiteContent("impulsa_landing");
+  const dbTiers = useImpulsaTiers();
+  const dbSections = useImpulsaSections();
+  const landingOverride = dbSections?.find(
+    (s) => s.section_key === "landing_impulsa" && s.is_active,
+  );
+
+  const tiers =
+    dbTiers && dbTiers.length > 0
+      ? dbTiers.map((t) => ({ title: t.title, price: formatPrice(t.amount, t.currency) }))
+      : c.tiers;
+
+  const badge = landingOverride?.eyebrow || c.badge;
+  const title = landingOverride?.title || c.title;
+  const subtitle = landingOverride?.subtitle || c.subtitle;
+  const extra = landingOverride?.body || c.extra;
+  const primaryCta = landingOverride?.cta_primary_label || c.primaryCta;
+  const primaryUrl = landingOverride?.cta_primary_url || "/impulsa#patrocinar";
+  const secondaryCta = landingOverride?.cta_secondary_label || c.secondaryCta;
+  const secondaryUrl = landingOverride?.cta_secondary_url || "/impulsa";
 
   return (
     <section

@@ -22,6 +22,7 @@ interface Row {
   production_public_key: string | null;
   production_access_token: string | null;
   webhook_secret: string | null;
+  site_url: string | null;
   is_active: boolean;
   notes: string | null;
   updated_at: string;

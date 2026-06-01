@@ -203,6 +203,9 @@ const Impulsa = () => {
                     </p>
                     <button
                       type="button"
+                      onClick={() => {
+                        document.getElementById("formulario")?.scrollIntoView({ behavior: "smooth" });
+                      }}
                       className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 font-semibold text-primary-foreground transition hover:opacity-90"
                     >
                       {t.cta} <ArrowRight className="h-4 w-4" />

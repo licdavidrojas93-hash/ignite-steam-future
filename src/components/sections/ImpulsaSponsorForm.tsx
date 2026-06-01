@@ -202,6 +202,9 @@ const ImpulsaSponsorForm = () => {
     setSubmitting(false);
     setDone("in_kind");
     reset();
+  };
+
+
 
   const ctaMoney = "Continuar a pago";
   const ctaInKind = "Enviar información";

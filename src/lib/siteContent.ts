@@ -135,6 +135,76 @@ export interface NavbarContent {
   ctaUrl: string;
 }
 
+// ===== IMPULSA =====
+export interface ImpulsaTier {
+  title: string;
+  price: string;
+  cta: string;
+}
+export interface ImpulsaLandingContent {
+  badge: string;
+  title: string;
+  subtitle: string;
+  highlight: string;
+  goal: string;
+  extra: string;
+  tiers: ImpulsaTier[];
+  primaryCta: string;
+  secondaryCta: string;
+  microcopy: string;
+}
+
+export interface ImpulsaStat { value: string; label: string }
+export interface ImpulsaTransparencyCard { title: string; items: string[] }
+
+export interface ImpulsaPageContent {
+  heroTitle: string;
+  heroSubtitle: string;
+  heroExtra: string;
+  heroPrimaryCta: string;
+  heroSecondaryCta: string;
+  whatTitle: string;
+  whatText: string;
+  missionTitle: string;
+  missionText: string;
+  goalTitle: string;
+  goalText: string;
+  goalStats: ImpulsaStat[];
+  goalExtra: string;
+  steamDayTitle: string;
+  steamDayText: string;
+  steamDayItems: string[];
+  beneficiariesTitle: string;
+  beneficiariesText: string;
+  tiersTitle: string;
+  tiersText: string;
+  tiers: ImpulsaTier[];
+  tiersExtra: string;
+  enablesTitle: string;
+  enablesText: string;
+  enablesChips: string[];
+  useTitle: string;
+  useText: string;
+  useItems: string[];
+  transparencyTitle: string;
+  transparencySubtitle: string;
+  transparencyText: string;
+  transparencyCards: ImpulsaTransparencyCard[];
+  transparencyFinal: string;
+  recognitionTitle: string;
+  recognitionText: string;
+  recognitionCta: string;
+  recognitionWhatsapp: string;
+  finalTitle: string;
+  finalSubtitle: string;
+  finalPrimaryCta: string;
+  finalWhatsappCta: string;
+  contactWebsite: string;
+  contactInstagram: string;
+  contactEmail: string;
+  contactWhatsapp: string;
+}
+
 export type SiteContentMap = {
   hero: HeroContent;
   what_is_steam: WhatIsSteamContent;
@@ -145,6 +215,8 @@ export type SiteContentMap = {
   donations: DonationsContent;
   footer: FooterContent;
   navbar: NavbarContent;
+  impulsa_landing: ImpulsaLandingContent;
+  impulsa_page: ImpulsaPageContent;
 };
 
 export type SectionKey = keyof SiteContentMap;
@@ -292,6 +364,139 @@ export const DEFAULTS: SiteContentMap = {
   navbar: {
     ctaText: "Donar ahora",
     ctaUrl: "https://www.paypal.com/donate/?hosted_button_id=NUN5PLXX6JAUS",
+  },
+  impulsa_landing: {
+    badge: "IMPULSA por Niñ@s STEAM",
+    title: "Abre una oportunidad. Inspira un futuro.",
+    subtitle:
+      "Con tu apoyo, niñas y niños de Hermosillo podrán vivir experiencias STEAM que despierten su curiosidad, creatividad y confianza.",
+    highlight: "El talento está en todas partes. Las oportunidades no.",
+    goal: "Meta 2026: 100 niñas y niños beneficiados",
+    extra:
+      "Tu participación puede hacer posible que más niñas y niños descubran de lo que son capaces.",
+    tiers: [
+      { title: "Impulsa 1 STEAM Day", price: "$400", cta: "Patrocina una experiencia" },
+      { title: "Impulsa 2 STEAM Days", price: "$800", cta: "Abre dos oportunidades" },
+      { title: "Impulsa 3 STEAM Days", price: "$1,200", cta: "Impulsa más talento" },
+    ],
+    primaryCta: "Patrocinar una experiencia STEAM",
+    secondaryCta: "Conocer más sobre IMPULSA",
+    microcopy: "Tu aportación ayuda a cubrir materiales, mentores, logística y operación.",
+  },
+  impulsa_page: {
+    heroTitle: "El talento está en todas partes. Las oportunidades no.",
+    heroSubtitle:
+      "Con tu participación, más niñas y niños podrán acceder a experiencias que despierten su potencial a través de la ciencia, la tecnología y la innovación.",
+    heroExtra:
+      "IMPULSA por Niñ@s STEAM es una iniciativa ciudadana que busca acercar experiencias educativas innovadoras a niñas y niños que difícilmente tendrían acceso a ellas.",
+    heroPrimaryCta: "Patrocinar una experiencia STEAM",
+    heroSecondaryCta: "Ver transparencia",
+    whatTitle: "¿Qué es IMPULSA?",
+    whatText:
+      "Impulsa por Niñ@s STEAM es una iniciativa ciudadana que busca acercar experiencias educativas innovadoras a niñas y niños que difícilmente tendrían acceso a ellas. A través de aportaciones de personas, familias, empresarios, empresas y organizaciones, se financiarán experiencias STEAM para niños de colonias vulnerables de Hermosillo. El objetivo es demostrar que el talento está distribuido en todas partes, pero las oportunidades no.",
+    missionTitle: "Misión",
+    missionText:
+      "Generar oportunidades reales para que niñas y niños descubran su potencial a través de experiencias prácticas de Ciencia, Tecnología, Ingeniería, Arte y Matemáticas (STEAM).",
+    goalTitle: "Meta 2026",
+    goalText:
+      "Lograr que al menos 100 niñas y niños de entre 7 y 12 años participen en experiencias STEAM financiadas por la comunidad.",
+    goalStats: [
+      { value: "100", label: "niñas y niños beneficiados" },
+      { value: "3", label: "STEAM Days" },
+      { value: "33", label: "participantes aproximados por sesión" },
+      { value: "7 a 12 años", label: "edad de los participantes" },
+    ],
+    goalExtra:
+      "La meta equivale a la realización de tres STEAM Days con aproximadamente 33 participantes cada uno.",
+    steamDayTitle: "¿Qué es un STEAM Day?",
+    steamDayText:
+      "Es una experiencia educativa de dos horas que se realiza en sábado. Más que enseñar contenidos, busca despertar curiosidad, creatividad, pensamiento crítico y confianza en las capacidades de cada niño.",
+    steamDayItems: [
+      "Dos experimentos prácticos",
+      "Actividades de ciencia y tecnología",
+      "Una mentora especializada",
+      "Tres inspiradores voluntarios",
+      "Materiales para todos los participantes",
+      "Experiencia de dos horas en sábado",
+    ],
+    beneficiariesTitle: "¿A quiénes beneficiará?",
+    beneficiariesText:
+      "Niñas y niños de 7 a 12 años provenientes de colonias vulnerables de Hermosillo. La selección se realizará en coordinación con escuelas y centros comunitarios aliados.",
+    tiersTitle: "Modalidades de participación",
+    tiersText:
+      "Cualquier persona puede convertirse en impulsor de oportunidades financiando la participación de uno o más niños.",
+    tiers: [
+      { title: "Impulsa 1 STEAM Day", price: "$400", cta: "Patrocina una experiencia" },
+      { title: "Impulsa 2 STEAM Days", price: "$800", cta: "Abre dos oportunidades" },
+      { title: "Impulsa 3 STEAM Days", price: "$1,200", cta: "Impulsa más talento" },
+    ],
+    tiersExtra:
+      "También puedes participar individualmente, en familia, con amigos, como empresa, organización o mediante aportaciones en especie.",
+    enablesTitle: "¿Qué hace posible tu aportación?",
+    enablesText:
+      "Con tu apoyo, un niño podrá participar en experiencias diseñadas para fortalecer:",
+    enablesChips: [
+      "Curiosidad",
+      "Creatividad",
+      "Resolución de problemas",
+      "Pensamiento crítico",
+      "Confianza en sí mismo",
+      "Interés por la ciencia y la innovación",
+    ],
+    useTitle: "¿En qué se utilizará el recurso?",
+    useText: "Los recursos obtenidos se destinarán exclusivamente a:",
+    useItems: [
+      "Materiales para experimentos",
+      "Honorarios de maestros y mentores",
+      "Coordinación y logística",
+      "Transporte",
+      "Operación de las actividades",
+    ],
+    transparencyTitle: "Transparencia",
+    transparencySubtitle:
+      "Creemos que la confianza se construye con seguimiento, evidencia y resultados.",
+    transparencyText:
+      "La campaña contempla un esquema de seguimiento público para que quienes participen puedan conocer el impacto generado por sus aportaciones.",
+    transparencyCards: [
+      {
+        title: "Seguimiento público",
+        items: ["Avance de la meta", "Número de niños beneficiados", "STEAM Days realizados"],
+      },
+      {
+        title: "Evidencia de impacto",
+        items: [
+          "Evidencia fotográfica y audiovisual",
+          "Historias de impacto",
+          "Resultados obtenidos",
+        ],
+      },
+      {
+        title: "Participación cercana",
+        items: [
+          "Invitaciones para asistir a actividades",
+          "Reconocimiento de participación",
+          "Posibilidad de conocer directamente el impacto generado",
+        ],
+      },
+    ],
+    transparencyFinal:
+      "Quienes participen podrán recibir información sobre los avances de la campaña, evidencia de las actividades realizadas e invitaciones para conocer algunas experiencias desarrolladas.",
+    recognitionTitle: "Reconocimiento",
+    recognitionText:
+      "Todos los participantes recibirán reconocimiento por su contribución. Las empresas podrán ser reconocidas como Aliados de Impulsa por Niñ@s STEAM.",
+    recognitionCta: "Quiero ser empresa aliada",
+    recognitionWhatsapp:
+      "https://wa.me/526623299771?text=Hola%2C%20quiero%20conocer%20c%C3%B3mo%20participar%20como%20aliado%20de%20IMPULSA%20por%20Ni%C3%B1%40s%20STEAM.",
+    finalTitle:
+      "No todos los niños tienen acceso a oportunidades innovadoras. Pero todos merecen descubrir de lo que son capaces.",
+    finalSubtitle:
+      "Con Impulsa por Niñ@s STEAM, cualquier persona puede ayudar a abrir esa puerta.",
+    finalPrimaryCta: "Patrocinar una experiencia STEAM",
+    finalWhatsappCta: "Contactar por WhatsApp",
+    contactWebsite: "https://ninossteam.com/",
+    contactInstagram: "",
+    contactEmail: "contacto@niñossteam.com",
+    contactWhatsapp: "662 329 9771",
   },
 };
 

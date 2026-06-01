@@ -223,6 +223,10 @@ const Impulsa = () => {
         {/* FORMULARIO DE PATROCINIO */}
         <ImpulsaSponsorForm />
 
+        {/* MURO DE PATROCINADORES */}
+        <SponsorsWall />
+
+
         {/* ENABLES */}
         <section className="py-16 bg-muted/30">
           <div className="container max-w-4xl">

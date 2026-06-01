@@ -11,7 +11,7 @@ import { Save, Copy, Eye, EyeOff, Loader2 } from "lucide-react";
 const db = supabase as any;
 const PROJECT_REF = import.meta.env.VITE_SUPABASE_PROJECT_ID as string;
 const WEBHOOK_URL = `https://${PROJECT_REF}.supabase.co/functions/v1/mercado-pago-webhook`;
-const SITE_ORIGIN = typeof window !== "undefined" ? window.location.origin : "";
+const DEFAULT_SITE_URL = "https://ninossteam.com";
 
 interface Row {
   id: string;
@@ -22,6 +22,7 @@ interface Row {
   production_public_key: string | null;
   production_access_token: string | null;
   webhook_secret: string | null;
+  site_url: string | null;
   is_active: boolean;
   notes: string | null;
   updated_at: string;
@@ -66,6 +67,7 @@ const MercadoPagoAdmin = () => {
         production_public_key: "",
         production_access_token: "",
         webhook_secret: "",
+        site_url: DEFAULT_SITE_URL,
         is_active: true,
         notes: "",
         updated_at: new Date().toISOString(),
@@ -91,6 +93,7 @@ const MercadoPagoAdmin = () => {
       production_public_key: row.production_public_key,
       production_access_token: row.production_access_token,
       webhook_secret: row.webhook_secret,
+      site_url: (row.site_url || DEFAULT_SITE_URL).replace(/\/$/, ""),
       is_active: row.is_active,
       notes: row.notes,
     };
@@ -257,6 +260,20 @@ const MercadoPagoAdmin = () => {
         </p>
       </div>
 
+      {/* Dominio del sitio en producción */}
+      <div className="space-y-3 rounded-2xl bg-card p-6 shadow-soft">
+        <Label className="text-base font-semibold">Dominio del sitio (producción)</Label>
+        <Input
+          value={row.site_url ?? ""}
+          onChange={(e) => set("site_url", e.target.value)}
+          placeholder="https://ninossteam.com"
+        />
+        <p className="text-xs text-muted-foreground">
+          Este dominio se usa para construir las URLs de retorno que Mercado Pago abre al finalizar
+          el pago. Cambia este valor si subes el sitio a otro dominio.
+        </p>
+      </div>
+
       {/* URLs */}
       <div className="space-y-4 rounded-2xl bg-primary/5 p-6 border border-primary/20">
         <h4 className="font-display text-lg font-bold">URLs para Mercado Pago</h4>
@@ -265,11 +282,19 @@ const MercadoPagoAdmin = () => {
           <strong>Mercado Pago Developers → Tus integraciones → Aplicación → Webhooks / Notificaciones → Configurar notificaciones → evento <code>payment</code></strong>.
         </p>
 
-        <UrlRow label="Webhook (notificaciones)" url={WEBHOOK_URL} />
-        <UrlRow label="Retorno: éxito" url={`${SITE_ORIGIN}/impulsa/gracias`} />
-        <UrlRow label="Retorno: pendiente" url={`${SITE_ORIGIN}/impulsa/pendiente`} />
-        <UrlRow label="Retorno: error" url={`${SITE_ORIGIN}/impulsa/error`} />
+        {(() => {
+          const base = (row.site_url || DEFAULT_SITE_URL).replace(/\/$/, "");
+          return (
+            <>
+              <UrlRow label="Webhook (notificaciones)" url={WEBHOOK_URL} />
+              <UrlRow label="Retorno: éxito" url={`${base}/impulsa/gracias`} />
+              <UrlRow label="Retorno: pendiente" url={`${base}/impulsa/pendiente`} />
+              <UrlRow label="Retorno: error" url={`${base}/impulsa/error`} />
+            </>
+          );
+        })()}
       </div>
+
 
       <div className="flex flex-wrap justify-end gap-2">
         <Button variant="outline" onClick={testConfig} disabled={testing}>

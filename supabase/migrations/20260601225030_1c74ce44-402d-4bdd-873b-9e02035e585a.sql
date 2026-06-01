@@ -1,0 +1,1 @@
+ALTER TABLE public.payment_provider_settings ADD COLUMN IF NOT EXISTS site_url text NOT NULL DEFAULT 'https://ninossteam.com';

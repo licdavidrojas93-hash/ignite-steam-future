@@ -56,6 +56,75 @@ export type Database = {
         }
         Relationships: []
       }
+      email_settings: {
+        Row: {
+          api_key: string | null
+          created_at: string
+          from_email: string | null
+          from_name: string | null
+          id: string
+          is_active: boolean
+          notes: string | null
+          provider: string
+          reply_to: string | null
+          updated_at: string
+        }
+        Insert: {
+          api_key?: string | null
+          created_at?: string
+          from_email?: string | null
+          from_name?: string | null
+          id?: string
+          is_active?: boolean
+          notes?: string | null
+          provider?: string
+          reply_to?: string | null
+          updated_at?: string
+        }
+        Update: {
+          api_key?: string | null
+          created_at?: string
+          from_email?: string | null
+          from_name?: string | null
+          id?: string
+          is_active?: boolean
+          notes?: string | null
+          provider?: string
+          reply_to?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      email_templates: {
+        Row: {
+          body: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          subject: string | null
+          template_key: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          subject?: string | null
+          template_key: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          subject?: string | null
+          template_key?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       impulsa_contact_settings: {
         Row: {
           contact_email: string | null
@@ -406,7 +475,30 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      public_impulsa_sponsors_wall: {
+        Row: {
+          created_at: string | null
+          id: string | null
+          message: string | null
+          public_display_name: string | null
+          sponsor_type: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string | null
+          message?: string | null
+          public_display_name?: string | null
+          sponsor_type?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string | null
+          message?: string | null
+          public_display_name?: string | null
+          sponsor_type?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never

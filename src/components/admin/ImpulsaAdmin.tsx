@@ -578,7 +578,7 @@ const FormFieldsManager = () => {
             onChange={(e) => update(row.id, { helper_text: e.target.value })}
           />
           <Area
-            label="Opciones del select (JSON, ej. [\"Persona\",\"Empresa\"])"
+            label={'Opciones del select (JSON, ej. ["Persona","Empresa"])'}
             value={
               typeof row.options === "string"
                 ? row.options

@@ -21,6 +21,7 @@ import {
 import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
 import ImpulsaSponsorForm from "@/components/sections/ImpulsaSponsorForm";
+import SponsorsWall from "@/components/sections/SponsorsWall";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import { useImpulsaContact } from "@/hooks/useImpulsa";
 

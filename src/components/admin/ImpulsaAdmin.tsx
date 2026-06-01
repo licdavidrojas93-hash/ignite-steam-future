@@ -9,6 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Plus, Save, Trash2, ChevronUp, ChevronDown } from "lucide-react";
 import type { ImpulsaSection, ImpulsaTier, ImpulsaContact } from "@/hooks/useImpulsa";
+import ImpulsaDashboard from "./impulsa/ImpulsaDashboard";
+import SponsorsAdmin from "./impulsa/SponsorsAdmin";
 
 // Cast helper for tables not yet in generated types
 const db = supabase as any;
@@ -923,34 +925,26 @@ const SponsorsManager = () => {
 };
 
 // ---------------- WRAPPER ----------------
-type TabKey = "sections" | "tiers" | "form" | "sponsors" | "contact";
+type TabKey = "dashboard" | "sponsors" | "sections" | "tiers" | "form" | "contact";
 
 const ImpulsaAdmin = () => {
-  const [tab, setTab] = useState<TabKey>("sections");
+  const [tab, setTab] = useState<TabKey>("dashboard");
   return (
     <Tabs value={tab} onValueChange={(v) => setTab(v as TabKey)}>
       <TabsList className="mb-6 flex-wrap">
+        <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+        <TabsTrigger value="sponsors">Patrocinios IMPULSA</TabsTrigger>
         <TabsTrigger value="sections">Secciones</TabsTrigger>
         <TabsTrigger value="tiers">Modalidades</TabsTrigger>
         <TabsTrigger value="form">Formulario</TabsTrigger>
-        <TabsTrigger value="sponsors">Patrocinios recibidos</TabsTrigger>
         <TabsTrigger value="contact">Contacto</TabsTrigger>
       </TabsList>
-      <TabsContent value="sections">
-        <SectionsManager />
-      </TabsContent>
-      <TabsContent value="tiers">
-        <TiersManager />
-      </TabsContent>
-      <TabsContent value="form">
-        <FormFieldsManager />
-      </TabsContent>
-      <TabsContent value="sponsors">
-        <SponsorsManager />
-      </TabsContent>
-      <TabsContent value="contact">
-        <ContactManager />
-      </TabsContent>
+      <TabsContent value="dashboard"><ImpulsaDashboard /></TabsContent>
+      <TabsContent value="sponsors"><SponsorsAdmin /></TabsContent>
+      <TabsContent value="sections"><SectionsManager /></TabsContent>
+      <TabsContent value="tiers"><TiersManager /></TabsContent>
+      <TabsContent value="form"><FormFieldsManager /></TabsContent>
+      <TabsContent value="contact"><ContactManager /></TabsContent>
     </Tabs>
   );
 };

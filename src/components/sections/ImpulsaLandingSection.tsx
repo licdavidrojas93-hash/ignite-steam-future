@@ -9,9 +9,42 @@ import {
   Target,
 } from "lucide-react";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { useImpulsaTiers, useImpulsaSections } from "@/hooks/useImpulsa";
+
+const formatPrice = (amount: number | null, currency: string) => {
+  if (amount == null) return "";
+  try {
+    return new Intl.NumberFormat("es-MX", {
+      style: "currency",
+      currency: currency || "MXN",
+      maximumFractionDigits: 0,
+    }).format(amount);
+  } catch {
+    return `$${amount} ${currency}`;
+  }
+};
 
 const ImpulsaLandingSection = () => {
   const c = useSiteContent("impulsa_landing");
+  const dbTiers = useImpulsaTiers();
+  const dbSections = useImpulsaSections();
+  const landingOverride = dbSections?.find(
+    (s) => s.section_key === "landing_impulsa" && s.is_active,
+  );
+
+  const tiers =
+    dbTiers && dbTiers.length > 0
+      ? dbTiers.map((t) => ({ title: t.title, price: formatPrice(t.amount, t.currency) }))
+      : c.tiers;
+
+  const badge = landingOverride?.eyebrow || c.badge;
+  const title = landingOverride?.title || c.title;
+  const subtitle = landingOverride?.subtitle || c.subtitle;
+  const extra = landingOverride?.body || c.extra;
+  const primaryCta = landingOverride?.cta_primary_label || c.primaryCta;
+  const primaryUrl = landingOverride?.cta_primary_url || "/impulsa#patrocinar";
+  const secondaryCta = landingOverride?.cta_secondary_label || c.secondaryCta;
+  const secondaryUrl = landingOverride?.cta_secondary_url || "/impulsa";
 
   return (
     <section
@@ -31,12 +64,12 @@ const ImpulsaLandingSection = () => {
             transition={{ duration: 0.6 }}
           >
             <span className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-2 text-xs font-bold uppercase tracking-wider text-primary">
-              <Sparkles className="h-3.5 w-3.5" /> {c.badge}
+              <Sparkles className="h-3.5 w-3.5" /> {badge}
             </span>
             <h2 className="mt-5 font-display text-4xl md:text-5xl font-bold leading-tight text-foreground">
-              {c.title}
+              {title}
             </h2>
-            <p className="mt-5 text-lg text-muted-foreground">{c.subtitle}</p>
+            <p className="mt-5 text-lg text-muted-foreground">{subtitle}</p>
 
             <div className="mt-6 rounded-2xl border-l-4 border-secondary bg-card/70 backdrop-blur p-5 shadow-soft">
               <p className="font-display text-xl font-bold text-foreground">
@@ -49,7 +82,8 @@ const ImpulsaLandingSection = () => {
               <p className="font-semibold text-foreground">{c.goal}</p>
             </div>
 
-            <p className="mt-5 text-muted-foreground">{c.extra}</p>
+            <p className="mt-5 text-muted-foreground">{extra}</p>
+
           </motion.div>
 
           {/* DERECHA — card */}
@@ -68,7 +102,7 @@ const ImpulsaLandingSection = () => {
             </div>
 
             <div className="mt-6 space-y-3">
-              {c.tiers.map((t, i) => {
+              {tiers.map((t, i) => {
                 const Icon = [Microscope, HeartHandshake, Sparkles][i % 3];
                 return (
                   <div
@@ -89,18 +123,19 @@ const ImpulsaLandingSection = () => {
 
             <div className="mt-7 flex flex-col gap-3">
               <Link
-                to="/impulsa#patrocinar"
+                to={primaryUrl}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-secondary px-6 py-4 font-bold text-white shadow-playful transition hover:scale-[1.02] hover:bg-accent hover:text-foreground"
               >
-                {c.primaryCta} <ArrowRight className="h-4 w-4" />
+                {primaryCta} <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
-                to="/impulsa"
+                to={secondaryUrl}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-primary px-6 py-4 font-bold text-primary transition hover:bg-primary hover:text-primary-foreground"
               >
-                {c.secondaryCta}
+                {secondaryCta}
               </Link>
             </div>
+
 
             <p className="mt-4 text-center text-xs text-muted-foreground">{c.microcopy}</p>
           </motion.div>

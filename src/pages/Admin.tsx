@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Pencil, Trash2, Plus, LogOut, X } from "lucide-react";
 import SiteContentEditor from "@/components/admin/SiteContentEditor";
+import ImpulsaAdmin from "@/components/admin/ImpulsaAdmin";
 
 interface Post {
   id: string;
@@ -140,12 +141,18 @@ const Admin = () => {
         <Tabs defaultValue="content">
           <TabsList className="mb-6">
             <TabsTrigger value="content">Contenido del sitio</TabsTrigger>
+            <TabsTrigger value="impulsa">IMPULSA</TabsTrigger>
             <TabsTrigger value="blog">Notas y blog</TabsTrigger>
           </TabsList>
 
           <TabsContent value="content">
             <SiteContentEditor />
           </TabsContent>
+
+          <TabsContent value="impulsa">
+            <ImpulsaAdmin />
+          </TabsContent>
+
 
           <TabsContent value="blog">
             <div className="mb-6 flex items-center justify-between">

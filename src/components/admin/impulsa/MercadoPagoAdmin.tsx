@@ -11,7 +11,7 @@ import { Save, Copy, Eye, EyeOff, Loader2 } from "lucide-react";
 const db = supabase as any;
 const PROJECT_REF = import.meta.env.VITE_SUPABASE_PROJECT_ID as string;
 const WEBHOOK_URL = `https://${PROJECT_REF}.supabase.co/functions/v1/mercado-pago-webhook`;
-const SITE_ORIGIN = typeof window !== "undefined" ? window.location.origin : "";
+const DEFAULT_SITE_URL = "https://ninossteam.com";
 
 interface Row {
   id: string;

@@ -191,6 +191,153 @@ export type Database = {
         }
         Relationships: []
       }
+      impulsa_form_fields: {
+        Row: {
+          created_at: string
+          field_key: string
+          field_type: string | null
+          helper_text: string | null
+          id: string
+          is_active: boolean | null
+          is_required: boolean | null
+          label: string
+          options: Json | null
+          placeholder: string | null
+          sort_order: number | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          field_key: string
+          field_type?: string | null
+          helper_text?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_required?: boolean | null
+          label: string
+          options?: Json | null
+          placeholder?: string | null
+          sort_order?: number | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          field_key?: string
+          field_type?: string | null
+          helper_text?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_required?: boolean | null
+          label?: string
+          options?: Json | null
+          placeholder?: string | null
+          sort_order?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      impulsa_sponsors: {
+        Row: {
+          admin_notes: string | null
+          amount: number | null
+          checkout_url: string | null
+          city: string | null
+          created_at: string
+          currency: string | null
+          email: string | null
+          email_sent: boolean | null
+          email_sent_at: string | null
+          id: string
+          in_kind_description: string | null
+          mercado_pago_payment_id: string | null
+          mercado_pago_preference_id: string | null
+          mercado_pago_status_detail: string | null
+          message: string | null
+          paid_at: string | null
+          participation_type: string | null
+          payment_method_id: string | null
+          payment_provider: string | null
+          payment_reference: string | null
+          payment_status: string | null
+          phone: string | null
+          public_display_name: string | null
+          public_wall_opt_in: boolean | null
+          sponsor_name: string
+          sponsor_type: string | null
+          state: string | null
+          terms_accepted: boolean | null
+          updated_at: string
+          visible_on_wall: boolean | null
+          webhook_last_received_at: string | null
+        }
+        Insert: {
+          admin_notes?: string | null
+          amount?: number | null
+          checkout_url?: string | null
+          city?: string | null
+          created_at?: string
+          currency?: string | null
+          email?: string | null
+          email_sent?: boolean | null
+          email_sent_at?: string | null
+          id?: string
+          in_kind_description?: string | null
+          mercado_pago_payment_id?: string | null
+          mercado_pago_preference_id?: string | null
+          mercado_pago_status_detail?: string | null
+          message?: string | null
+          paid_at?: string | null
+          participation_type?: string | null
+          payment_method_id?: string | null
+          payment_provider?: string | null
+          payment_reference?: string | null
+          payment_status?: string | null
+          phone?: string | null
+          public_display_name?: string | null
+          public_wall_opt_in?: boolean | null
+          sponsor_name: string
+          sponsor_type?: string | null
+          state?: string | null
+          terms_accepted?: boolean | null
+          updated_at?: string
+          visible_on_wall?: boolean | null
+          webhook_last_received_at?: string | null
+        }
+        Update: {
+          admin_notes?: string | null
+          amount?: number | null
+          checkout_url?: string | null
+          city?: string | null
+          created_at?: string
+          currency?: string | null
+          email?: string | null
+          email_sent?: boolean | null
+          email_sent_at?: string | null
+          id?: string
+          in_kind_description?: string | null
+          mercado_pago_payment_id?: string | null
+          mercado_pago_preference_id?: string | null
+          mercado_pago_status_detail?: string | null
+          message?: string | null
+          paid_at?: string | null
+          participation_type?: string | null
+          payment_method_id?: string | null
+          payment_provider?: string | null
+          payment_reference?: string | null
+          payment_status?: string | null
+          phone?: string | null
+          public_display_name?: string | null
+          public_wall_opt_in?: boolean | null
+          sponsor_name?: string
+          sponsor_type?: string | null
+          state?: string | null
+          terms_accepted?: boolean | null
+          updated_at?: string
+          visible_on_wall?: boolean | null
+          webhook_last_received_at?: string | null
+        }
+        Relationships: []
+      }
       site_content: {
         Row: {
           data: Json

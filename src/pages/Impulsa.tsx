@@ -21,11 +21,20 @@ import {
 import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { useImpulsaContact } from "@/hooks/useImpulsa";
 
 const Impulsa = () => {
   const c = useSiteContent("impulsa_page");
+  const dbContact = useImpulsaContact();
 
-  const whatsappLink = `https://wa.me/52${c.contactWhatsapp.replace(/\s/g, "")}`;
+  const contactWhatsapp = dbContact?.whatsapp_number || c.contactWhatsapp;
+  const contactEmail = dbContact?.contact_email || c.contactEmail;
+  const contactInstagram = dbContact?.instagram_url || c.contactInstagram;
+  const contactWebsite = dbContact?.website_url || c.contactWebsite;
+  const waDigits = contactWhatsapp.replace(/\D/g, "");
+  const whatsappLink = `https://wa.me/${waDigits.startsWith("52") ? waDigits : `52${waDigits}`}${
+    dbContact?.whatsapp_message ? `?text=${encodeURIComponent(dbContact.whatsapp_message)}` : ""
+  }`;
 
   return (
     <div className="min-h-screen bg-background">

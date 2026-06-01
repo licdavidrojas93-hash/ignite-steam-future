@@ -102,7 +102,7 @@ const ImpulsaLandingSection = () => {
             </div>
 
             <div className="mt-6 space-y-3">
-              {c.tiers.map((t, i) => {
+              {tiers.map((t, i) => {
                 const Icon = [Microscope, HeartHandshake, Sparkles][i % 3];
                 return (
                   <div
@@ -123,18 +123,19 @@ const ImpulsaLandingSection = () => {
 
             <div className="mt-7 flex flex-col gap-3">
               <Link
-                to="/impulsa#patrocinar"
+                to={primaryUrl}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-secondary px-6 py-4 font-bold text-white shadow-playful transition hover:scale-[1.02] hover:bg-accent hover:text-foreground"
               >
-                {c.primaryCta} <ArrowRight className="h-4 w-4" />
+                {primaryCta} <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
-                to="/impulsa"
+                to={secondaryUrl}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-primary px-6 py-4 font-bold text-primary transition hover:bg-primary hover:text-primary-foreground"
               >
-                {c.secondaryCta}
+                {secondaryCta}
               </Link>
             </div>
+
 
             <p className="mt-4 text-center text-xs text-muted-foreground">{c.microcopy}</p>
           </motion.div>

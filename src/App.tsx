@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound.tsx";
 import AdminLogin from "./pages/AdminLogin.tsx";
 import Admin from "./pages/Admin.tsx";
 import Impulsa from "./pages/Impulsa.tsx";
+import ImpulsaReturn from "./pages/ImpulsaReturn.tsx";
 
 const queryClient = new QueryClient();
 

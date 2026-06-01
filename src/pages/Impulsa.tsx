@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
+import ImpulsaSponsorForm from "@/components/sections/ImpulsaSponsorForm";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import { useImpulsaContact } from "@/hooks/useImpulsa";
 
@@ -202,6 +203,9 @@ const Impulsa = () => {
                     </p>
                     <button
                       type="button"
+                      onClick={() => {
+                        document.getElementById("formulario")?.scrollIntoView({ behavior: "smooth" });
+                      }}
                       className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 font-semibold text-primary-foreground transition hover:opacity-90"
                     >
                       {t.cta} <ArrowRight className="h-4 w-4" />
@@ -214,6 +218,9 @@ const Impulsa = () => {
             <p className="mt-8 text-center text-muted-foreground">{c.tiersExtra}</p>
           </div>
         </section>
+
+        {/* FORMULARIO DE PATROCINIO */}
+        <ImpulsaSponsorForm />
 
         {/* ENABLES */}
         <section className="py-16 bg-muted/30">

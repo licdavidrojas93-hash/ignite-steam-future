@@ -451,14 +451,489 @@ const ContactManager = () => {
   );
 };
 
-// ---------------- WRAPPER ----------------
-const ImpulsaAdmin = () => {
-  const [tab, setTab] = useState<"sections" | "tiers" | "contact">("sections");
+// ---------------- FORM FIELDS ----------------
+interface FormFieldRow {
+  id: string;
+  field_key: string;
+  label: string;
+  placeholder: string | null;
+  helper_text: string | null;
+  field_type: string | null;
+  is_required: boolean;
+  is_active: boolean;
+  options: unknown;
+  sort_order: number;
+}
+
+const FormFieldsManager = () => {
+  const [rows, setRows] = useState<FormFieldRow[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [savingId, setSavingId] = useState<string | null>(null);
+
+  const load = async () => {
+    setLoading(true);
+    const { data, error } = await db
+      .from("impulsa_form_fields")
+      .select("*")
+      .order("sort_order", { ascending: true });
+    if (error) toast.error(error.message);
+    setRows(data ?? []);
+    setLoading(false);
+  };
+  useEffect(() => {
+    load();
+  }, []);
+
+  const update = (id: string, patch: Partial<FormFieldRow>) =>
+    setRows((rs) => rs.map((r) => (r.id === id ? { ...r, ...patch } : r)));
+
+  const save = async (row: FormFieldRow) => {
+    setSavingId(row.id);
+    let parsedOptions: unknown = row.options;
+    if (typeof row.options === "string") {
+      try {
+        parsedOptions = JSON.parse(row.options || "null");
+      } catch {
+        setSavingId(null);
+        return toast.error("Opciones: JSON inválido (usa formato como [\"A\",\"B\"]).");
+      }
+    }
+    const { error } = await db
+      .from("impulsa_form_fields")
+      .update({
+        label: row.label,
+        placeholder: row.placeholder,
+        helper_text: row.helper_text,
+        field_type: row.field_type,
+        is_required: row.is_required,
+        is_active: row.is_active,
+        options: parsedOptions,
+        sort_order: row.sort_order,
+      })
+      .eq("id", row.id);
+    setSavingId(null);
+    if (error) return toast.error(error.message);
+    toast.success("Campo guardado ✓");
+  };
+
+  if (loading) return <p className="text-muted-foreground">Cargando...</p>;
+
   return (
-    <Tabs value={tab} onValueChange={(v) => setTab(v as typeof tab)}>
-      <TabsList className="mb-6">
+    <div className="space-y-6">
+      <h3 className="font-display text-2xl">Formulario de patrocinio</h3>
+      <p className="text-sm text-muted-foreground">
+        Edita las etiquetas, textos de ayuda, obligatoriedad y opciones de cada campo del formulario público.
+      </p>
+
+      {rows.map((row) => (
+        <div key={row.id} className="space-y-4 rounded-2xl bg-card p-6 shadow-soft">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="text-xs text-muted-foreground">
+              clave: <code>{row.field_key}</code> · tipo: {row.field_type || "—"}
+            </p>
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 rounded-xl bg-muted/50 px-3 py-2">
+                <Label className="cursor-pointer text-xs">Obligatorio</Label>
+                <Switch
+                  checked={row.is_required}
+                  onCheckedChange={(v) => update(row.id, { is_required: v })}
+                />
+              </div>
+              <div className="flex items-center gap-2 rounded-xl bg-muted/50 px-3 py-2">
+                <Label className="cursor-pointer text-xs">Activo</Label>
+                <Switch
+                  checked={row.is_active}
+                  onCheckedChange={(v) => update(row.id, { is_active: v })}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <Field
+              label="Etiqueta (label)"
+              value={row.label ?? ""}
+              onChange={(e) => update(row.id, { label: e.target.value })}
+            />
+            <Field
+              label="Placeholder"
+              value={row.placeholder ?? ""}
+              onChange={(e) => update(row.id, { placeholder: e.target.value })}
+            />
+            <Field
+              label="Orden"
+              type="number"
+              value={row.sort_order ?? 0}
+              onChange={(e) => update(row.id, { sort_order: Number(e.target.value) })}
+            />
+            <Field
+              label="Tipo (text, email, select, textarea, checkbox...)"
+              value={row.field_type ?? ""}
+              onChange={(e) => update(row.id, { field_type: e.target.value })}
+            />
+          </div>
+          <Area
+            label="Texto de ayuda"
+            value={row.helper_text ?? ""}
+            onChange={(e) => update(row.id, { helper_text: e.target.value })}
+          />
+          <Area
+            label={'Opciones del select (JSON, ej. ["Persona","Empresa"])'}
+            value={
+              typeof row.options === "string"
+                ? row.options
+                : row.options
+                ? JSON.stringify(row.options)
+                : ""
+            }
+            onChange={(e) => update(row.id, { options: e.target.value })}
+          />
+          <div className="flex justify-end">
+            <Button variant="hero" onClick={() => save(row)} disabled={savingId === row.id}>
+              <Save className="h-4 w-4" /> {savingId === row.id ? "Guardando..." : "Guardar campo"}
+            </Button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// ---------------- SPONSORS LIST ----------------
+interface SponsorRow {
+  id: string;
+  created_at: string;
+  sponsor_name: string;
+  sponsor_type: string | null;
+  email: string | null;
+  phone: string | null;
+  city: string | null;
+  state: string | null;
+  participation_type: string | null;
+  amount: number | null;
+  currency: string | null;
+  payment_status: string | null;
+  public_wall_opt_in: boolean;
+  public_display_name: string | null;
+  message: string | null;
+  in_kind_description: string | null;
+  admin_notes: string | null;
+  visible_on_wall: boolean;
+}
+
+const STATUSES = [
+  "pending",
+  "paid",
+  "failed",
+  "cancelled",
+  "refunded",
+  "in_kind_pending",
+  "in_kind_confirmed",
+];
+
+const SponsorsManager = () => {
+  const [rows, setRows] = useState<SponsorRow[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState<SponsorRow | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  const load = async () => {
+    setLoading(true);
+    const { data, error } = await db
+      .from("impulsa_sponsors")
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (error) toast.error(error.message);
+    setRows(data ?? []);
+    setLoading(false);
+  };
+  useEffect(() => {
+    load();
+  }, []);
+
+  const exportCsv = () => {
+    const headers = [
+      "fecha",
+      "nombre",
+      "tipo",
+      "correo",
+      "telefono",
+      "ciudad",
+      "estado",
+      "modalidad",
+      "monto",
+      "moneda",
+      "estado_pago",
+      "muro",
+      "nombre_publico",
+      "mensaje",
+      "especie",
+      "notas",
+    ];
+    const csv = [headers.join(",")]
+      .concat(
+        rows.map((r) =>
+          [
+            new Date(r.created_at).toISOString(),
+            r.sponsor_name,
+            r.sponsor_type,
+            r.email,
+            r.phone,
+            r.city,
+            r.state,
+            r.participation_type,
+            r.amount,
+            r.currency,
+            r.payment_status,
+            r.public_wall_opt_in ? "sí" : "no",
+            r.public_display_name,
+            r.message,
+            r.in_kind_description,
+            r.admin_notes,
+          ]
+            .map((v) => `"${String(v ?? "").replace(/"/g, '""')}"`)
+            .join(","),
+        ),
+      )
+      .join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `patrocinios_${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const saveDetail = async () => {
+    if (!open) return;
+    setSaving(true);
+    const { error } = await db
+      .from("impulsa_sponsors")
+      .update({
+        sponsor_name: open.sponsor_name,
+        sponsor_type: open.sponsor_type,
+        email: open.email,
+        phone: open.phone,
+        city: open.city,
+        state: open.state,
+        amount: open.amount,
+        payment_status: open.payment_status,
+        public_wall_opt_in: open.public_wall_opt_in,
+        public_display_name: open.public_display_name,
+        message: open.message,
+        in_kind_description: open.in_kind_description,
+        admin_notes: open.admin_notes,
+        visible_on_wall: open.visible_on_wall,
+      })
+      .eq("id", open.id);
+    setSaving(false);
+    if (error) return toast.error(error.message);
+    toast.success("Patrocinio actualizado ✓");
+    setOpen(null);
+    load();
+  };
+
+  if (loading) return <p className="text-muted-foreground">Cargando...</p>;
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h3 className="font-display text-2xl">Patrocinios recibidos</h3>
+        <Button variant="outline" onClick={exportCsv}>
+          Exportar CSV
+        </Button>
+      </div>
+
+      {rows.length === 0 ? (
+        <p className="text-muted-foreground">Aún no hay registros.</p>
+      ) : (
+        <div className="overflow-x-auto rounded-2xl bg-card shadow-soft">
+          <table className="w-full text-sm">
+            <thead className="bg-muted/40 text-left">
+              <tr>
+                <th className="px-4 py-3">Fecha</th>
+                <th className="px-4 py-3">Patrocinador</th>
+                <th className="px-4 py-3">Modalidad</th>
+                <th className="px-4 py-3">Monto</th>
+                <th className="px-4 py-3">Estado</th>
+                <th className="px-4 py-3">Contacto</th>
+                <th className="px-4 py-3">Muro</th>
+                <th className="px-4 py-3"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r) => (
+                <tr key={r.id} className="border-t border-border">
+                  <td className="px-4 py-3 whitespace-nowrap">
+                    {new Date(r.created_at).toLocaleDateString("es-MX")}
+                  </td>
+                  <td className="px-4 py-3">
+                    <p className="font-semibold">{r.sponsor_name}</p>
+                    <p className="text-xs text-muted-foreground">{r.sponsor_type || "—"}</p>
+                  </td>
+                  <td className="px-4 py-3">{r.participation_type || "—"}</td>
+                  <td className="px-4 py-3 whitespace-nowrap">
+                    {r.amount ? `$${Number(r.amount).toLocaleString("es-MX")} ${r.currency || ""}` : "—"}
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className="rounded-full bg-muted/60 px-2 py-1 text-xs">
+                      {r.payment_status}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-xs">
+                    {r.email || "—"}
+                    <br />
+                    {r.phone || "—"}
+                  </td>
+                  <td className="px-4 py-3 text-xs">
+                    {r.public_wall_opt_in ? `sí · ${r.public_display_name || ""}` : "no"}
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <Button size="sm" variant="outline" onClick={() => setOpen(r)}>
+                      Detalle
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {open && (
+        <div
+          className="fixed inset-0 z-50 grid place-items-center bg-black/50 p-4"
+          onClick={() => setOpen(null)}
+        >
+          <div
+            className="max-h-[90vh] w-full max-w-2xl overflow-auto rounded-3xl bg-card p-6 shadow-medium"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-4">
+              <h3 className="font-display text-xl font-bold">Detalle del patrocinio</h3>
+              <Button size="icon" variant="ghost" onClick={() => setOpen(null)}>
+                ×
+              </Button>
+            </div>
+
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+              <Field
+                label="Nombre"
+                value={open.sponsor_name ?? ""}
+                onChange={(e) => setOpen({ ...open, sponsor_name: e.target.value })}
+              />
+              <Field
+                label="Tipo"
+                value={open.sponsor_type ?? ""}
+                onChange={(e) => setOpen({ ...open, sponsor_type: e.target.value })}
+              />
+              <Field
+                label="Correo"
+                value={open.email ?? ""}
+                onChange={(e) => setOpen({ ...open, email: e.target.value })}
+              />
+              <Field
+                label="Teléfono"
+                value={open.phone ?? ""}
+                onChange={(e) => setOpen({ ...open, phone: e.target.value })}
+              />
+              <Field
+                label="Ciudad"
+                value={open.city ?? ""}
+                onChange={(e) => setOpen({ ...open, city: e.target.value })}
+              />
+              <Field
+                label="Estado"
+                value={open.state ?? ""}
+                onChange={(e) => setOpen({ ...open, state: e.target.value })}
+              />
+              <Field
+                label="Monto"
+                type="number"
+                value={open.amount ?? 0}
+                onChange={(e) => setOpen({ ...open, amount: Number(e.target.value) })}
+              />
+              <div className="space-y-2">
+                <Label>Estado del pago</Label>
+                <select
+                  className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                  value={open.payment_status ?? "pending"}
+                  onChange={(e) => setOpen({ ...open, payment_status: e.target.value })}
+                >
+                  {STATUSES.map((s) => (
+                    <option key={s} value={s}>
+                      {s}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <Field
+                label="Nombre público (muro)"
+                value={open.public_display_name ?? ""}
+                onChange={(e) => setOpen({ ...open, public_display_name: e.target.value })}
+              />
+              <div className="flex items-center gap-2 rounded-xl bg-muted/50 px-3 py-2">
+                <Label className="cursor-pointer text-xs">Autoriza muro</Label>
+                <Switch
+                  checked={open.public_wall_opt_in}
+                  onCheckedChange={(v) => setOpen({ ...open, public_wall_opt_in: v })}
+                />
+              </div>
+              <div className="flex items-center gap-2 rounded-xl bg-muted/50 px-3 py-2">
+                <Label className="cursor-pointer text-xs">Visible en muro</Label>
+                <Switch
+                  checked={open.visible_on_wall}
+                  onCheckedChange={(v) => setOpen({ ...open, visible_on_wall: v })}
+                />
+              </div>
+            </div>
+
+            <div className="mt-4 space-y-4">
+              <Area
+                label="Mensaje del patrocinador"
+                value={open.message ?? ""}
+                onChange={(e) => setOpen({ ...open, message: e.target.value })}
+              />
+              <Area
+                label="Donación en especie"
+                value={open.in_kind_description ?? ""}
+                onChange={(e) => setOpen({ ...open, in_kind_description: e.target.value })}
+              />
+              <Area
+                label="Notas internas"
+                value={open.admin_notes ?? ""}
+                onChange={(e) => setOpen({ ...open, admin_notes: e.target.value })}
+              />
+            </div>
+
+            <div className="mt-6 flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setOpen(null)}>
+                Cancelar
+              </Button>
+              <Button variant="hero" onClick={saveDetail} disabled={saving}>
+                <Save className="h-4 w-4" /> {saving ? "Guardando..." : "Guardar cambios"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ---------------- WRAPPER ----------------
+type TabKey = "sections" | "tiers" | "form" | "sponsors" | "contact";
+
+const ImpulsaAdmin = () => {
+  const [tab, setTab] = useState<TabKey>("sections");
+  return (
+    <Tabs value={tab} onValueChange={(v) => setTab(v as TabKey)}>
+      <TabsList className="mb-6 flex-wrap">
         <TabsTrigger value="sections">Secciones</TabsTrigger>
-        <TabsTrigger value="tiers">Niveles de patrocinio</TabsTrigger>
+        <TabsTrigger value="tiers">Modalidades</TabsTrigger>
+        <TabsTrigger value="form">Formulario</TabsTrigger>
+        <TabsTrigger value="sponsors">Patrocinios recibidos</TabsTrigger>
         <TabsTrigger value="contact">Contacto</TabsTrigger>
       </TabsList>
       <TabsContent value="sections">
@@ -466,6 +941,12 @@ const ImpulsaAdmin = () => {
       </TabsContent>
       <TabsContent value="tiers">
         <TiersManager />
+      </TabsContent>
+      <TabsContent value="form">
+        <FormFieldsManager />
+      </TabsContent>
+      <TabsContent value="sponsors">
+        <SponsorsManager />
       </TabsContent>
       <TabsContent value="contact">
         <ContactManager />

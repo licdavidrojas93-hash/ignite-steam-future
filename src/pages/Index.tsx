@@ -5,7 +5,7 @@ import Mission from "@/components/sections/Mission";
 import Team from "@/components/sections/Team";
 import Programs from "@/components/sections/Programs";
 import Collaborators from "@/components/sections/Collaborators";
-import Donations from "@/components/sections/Donations";
+import ImpulsaLandingSection from "@/components/sections/ImpulsaLandingSection";
 import Blog from "@/components/sections/Blog";
 import Footer from "@/components/sections/Footer";
 
@@ -20,7 +20,7 @@ const Index = () => {
         <Team />
         <Programs />
         <Collaborators />
-        <Donations />
+        <ImpulsaLandingSection />
         <Blog />
       </main>
       <Footer />

@@ -104,7 +104,28 @@ Deno.serve(async (req) => {
       .eq("id", externalRef);
     if (error) console.error("update error", error);
 
-    // TODO: trigger confirmation email when payment_status becomes 'paid'.
+    // Trigger thank-you email when the payment becomes paid (fire-and-forget).
+    if (payment_status === "paid" && existing.payment_status !== "paid") {
+      try {
+        const projectRef = Deno.env.get("SUPABASE_URL")!
+          .replace("https://", "")
+          .split(".")[0];
+        await fetch(
+          `https://${projectRef}.supabase.co/functions/v1/send-sponsor-email`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}`,
+            },
+            body: JSON.stringify({ sponsor_id: externalRef }),
+          },
+        );
+      } catch (e) {
+        console.error("send-sponsor-email trigger failed", e);
+      }
+    }
+
     return new Response("ok", { status: 200, headers: corsHeaders });
   } catch (e) {
     console.error(e);

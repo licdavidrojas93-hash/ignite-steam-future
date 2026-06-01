@@ -114,10 +114,28 @@ const SponsorsAdmin = () => {
     load();
   };
 
-  const setStatus = (s: Sponsor, status: string) => {
+  const triggerEmail = async (sponsorId: string, force = false) => {
+    const { data, error } = await supabase.functions.invoke("send-sponsor-email", {
+      body: { sponsor_id: sponsorId, force },
+    });
+    if (error || (data as any)?.error) {
+      toast.error((data as any)?.error || error?.message || "No se pudo enviar el correo");
+      return false;
+    }
+    return true;
+  };
+
+  const setStatus = async (s: Sponsor, status: string) => {
     const data: any = { payment_status: status };
     if (status === "paid" && !s.paid_at) data.paid_at = new Date().toISOString();
-    return patch(s.id, data, `Estado: ${status}`);
+    const { error } = await db.from("impulsa_sponsors").update(data).eq("id", s.id);
+    if (error) return toast.error(error.message);
+    toast.success(`Estado: ${status}`);
+    if ((status === "paid" || status === "in_kind_confirmed") && !s.email_sent && s.email) {
+      const ok = await triggerEmail(s.id);
+      if (ok) toast.success("Correo de agradecimiento enviado ✓");
+    }
+    load();
   };
 
   const toggleWall = (s: Sponsor) => {
@@ -131,8 +149,13 @@ const SponsorsAdmin = () => {
     return patch(s.id, { visible_on_wall: next }, next ? "Mostrado en muro" : "Oculto del muro");
   };
 
-  const resendEmail = (s: Sponsor) => {
-    toast.info(`Reenvío de correo a ${s.email || "—"} preparado (correo automático aún no configurado).`);
+  const resendEmail = async (s: Sponsor) => {
+    if (!s.email) return toast.error("El patrocinador no tiene correo registrado.");
+    const ok = await triggerEmail(s.id, true);
+    if (ok) {
+      toast.success(`Correo reenviado a ${s.email}`);
+      load();
+    }
   };
 
   const saveDetail = async () => {

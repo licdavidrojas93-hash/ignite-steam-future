@@ -12,6 +12,8 @@ import type { ImpulsaSection, ImpulsaTier, ImpulsaContact } from "@/hooks/useImp
 import ImpulsaDashboard from "./impulsa/ImpulsaDashboard";
 import SponsorsAdmin from "./impulsa/SponsorsAdmin";
 import MercadoPagoAdmin from "./impulsa/MercadoPagoAdmin";
+import EmailsAdmin from "./impulsa/EmailsAdmin";
+import WallAdmin from "./impulsa/WallAdmin";
 
 // Cast helper for tables not yet in generated types
 const db = supabase as any;
@@ -926,7 +928,16 @@ const SponsorsManager = () => {
 };
 
 // ---------------- WRAPPER ----------------
-type TabKey = "dashboard" | "sponsors" | "sections" | "tiers" | "form" | "contact" | "mp";
+type TabKey =
+  | "dashboard"
+  | "sponsors"
+  | "wall"
+  | "emails"
+  | "sections"
+  | "tiers"
+  | "form"
+  | "contact"
+  | "mp";
 
 const ImpulsaAdmin = () => {
   const [tab, setTab] = useState<TabKey>("dashboard");
@@ -935,6 +946,8 @@ const ImpulsaAdmin = () => {
       <TabsList className="mb-6 flex-wrap">
         <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
         <TabsTrigger value="sponsors">Patrocinios IMPULSA</TabsTrigger>
+        <TabsTrigger value="wall">Muro de patrocinadores</TabsTrigger>
+        <TabsTrigger value="emails">Correos</TabsTrigger>
         <TabsTrigger value="sections">Secciones</TabsTrigger>
         <TabsTrigger value="tiers">Modalidades</TabsTrigger>
         <TabsTrigger value="form">Formulario</TabsTrigger>
@@ -943,6 +956,8 @@ const ImpulsaAdmin = () => {
       </TabsList>
       <TabsContent value="dashboard"><ImpulsaDashboard /></TabsContent>
       <TabsContent value="sponsors"><SponsorsAdmin /></TabsContent>
+      <TabsContent value="wall"><WallAdmin /></TabsContent>
+      <TabsContent value="emails"><EmailsAdmin /></TabsContent>
       <TabsContent value="sections"><SectionsManager /></TabsContent>
       <TabsContent value="tiers"><TiersManager /></TabsContent>
       <TabsContent value="form"><FormFieldsManager /></TabsContent>

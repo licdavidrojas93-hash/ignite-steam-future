@@ -6,6 +6,7 @@ import Team from "@/components/sections/Team";
 import Programs from "@/components/sections/Programs";
 import Collaborators from "@/components/sections/Collaborators";
 import ImpulsaLandingSection from "@/components/sections/ImpulsaLandingSection";
+import SponsorsWallPreview from "@/components/sections/SponsorsWallPreview";
 import Blog from "@/components/sections/Blog";
 import Footer from "@/components/sections/Footer";
 
@@ -21,6 +22,7 @@ const Index = () => {
         <Programs />
         <Collaborators />
         <ImpulsaLandingSection />
+        <SponsorsWallPreview />
         <Blog />
       </main>
       <Footer />

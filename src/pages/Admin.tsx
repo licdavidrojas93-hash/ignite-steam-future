@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Pencil, Trash2, Plus, LogOut, X } from "lucide-react";
 import SiteContentEditor from "@/components/admin/SiteContentEditor";
+import ImpulsaAdmin from "@/components/admin/ImpulsaAdmin";
 
 interface Post {
   id: string;

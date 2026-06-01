@@ -30,6 +30,8 @@ const SECTIONS = [
   { key: "programs", label: "Programas" },
   { key: "collaborators", label: "Colaboradores" },
   { key: "donations", label: "Donaciones" },
+  { key: "impulsa_landing", label: "IMPULSA (landing)" },
+  { key: "impulsa_page", label: "IMPULSA (página)" },
   { key: "navbar", label: "Menú" },
   { key: "footer", label: "Footer" },
 ] as const;
@@ -384,6 +386,157 @@ const SiteContentEditor = () => {
               <Field label="Sitio web" value={v.website} onChange={(e) => set("website", e.target.value)} />
               <Area label="Dirección" value={v.address} onChange={(e) => set("address", e.target.value)} />
               <Field label="Texto de copyright" value={v.copyright} onChange={(e) => set("copyright", e.target.value)} />
+            </>
+          )}
+        </SectionEditor>
+      </TabsContent>
+
+      {/* IMPULSA LANDING */}
+      <TabsContent value="impulsa_landing">
+        <SectionEditor sectionKey="impulsa_landing" title="IMPULSA — sección en landing">
+          {(v, set) => (
+            <>
+              <Field label="Badge" value={v.badge} onChange={(e) => set("badge", e.target.value)} />
+              <Field label="Título" value={v.title} onChange={(e) => set("title", e.target.value)} />
+              <Area label="Subtítulo" value={v.subtitle} onChange={(e) => set("subtitle", e.target.value)} />
+              <Area label="Frase destacada" value={v.highlight} onChange={(e) => set("highlight", e.target.value)} />
+              <Field label="Meta visual" value={v.goal} onChange={(e) => set("goal", e.target.value)} />
+              <Area label="Texto adicional" value={v.extra} onChange={(e) => set("extra", e.target.value)} />
+
+              <p className="pt-2 font-semibold text-sm">Modalidades (3)</p>
+              {v.tiers.map((t, i) => (
+                <div key={i} className="grid gap-3 rounded-lg border border-border p-4 md:grid-cols-3">
+                  <Field label="Título" value={t.title} onChange={(e) => {
+                    const next = [...v.tiers]; next[i] = { ...t, title: e.target.value }; set("tiers", next);
+                  }} />
+                  <Field label="Precio" value={t.price} onChange={(e) => {
+                    const next = [...v.tiers]; next[i] = { ...t, price: e.target.value }; set("tiers", next);
+                  }} />
+                  <Field label="CTA" value={t.cta} onChange={(e) => {
+                    const next = [...v.tiers]; next[i] = { ...t, cta: e.target.value }; set("tiers", next);
+                  }} />
+                </div>
+              ))}
+
+              <Field label="Botón principal" value={v.primaryCta} onChange={(e) => set("primaryCta", e.target.value)} />
+              <Field label="Botón secundario" value={v.secondaryCta} onChange={(e) => set("secondaryCta", e.target.value)} />
+              <Area label="Microcopy" value={v.microcopy} onChange={(e) => set("microcopy", e.target.value)} />
+            </>
+          )}
+        </SectionEditor>
+      </TabsContent>
+
+      {/* IMPULSA PAGE */}
+      <TabsContent value="impulsa_page">
+        <SectionEditor sectionKey="impulsa_page" title="IMPULSA — página /impulsa">
+          {(v, set) => (
+            <>
+              <p className="pt-2 font-semibold text-sm">Hero</p>
+              <Field label="Título" value={v.heroTitle} onChange={(e) => set("heroTitle", e.target.value)} />
+              <Area label="Subtítulo" value={v.heroSubtitle} onChange={(e) => set("heroSubtitle", e.target.value)} />
+              <Area label="Texto complementario" value={v.heroExtra} onChange={(e) => set("heroExtra", e.target.value)} />
+              <div className="grid gap-3 md:grid-cols-2">
+                <Field label="Botón principal" value={v.heroPrimaryCta} onChange={(e) => set("heroPrimaryCta", e.target.value)} />
+                <Field label="Botón secundario" value={v.heroSecondaryCta} onChange={(e) => set("heroSecondaryCta", e.target.value)} />
+              </div>
+
+              <p className="pt-4 font-semibold text-sm">¿Qué es IMPULSA? + Misión</p>
+              <Field label="Título sección" value={v.whatTitle} onChange={(e) => set("whatTitle", e.target.value)} />
+              <Area label="Texto" value={v.whatText} onChange={(e) => set("whatText", e.target.value)} />
+              <Field label="Título misión" value={v.missionTitle} onChange={(e) => set("missionTitle", e.target.value)} />
+              <Area label="Texto misión" value={v.missionText} onChange={(e) => set("missionText", e.target.value)} />
+
+              <p className="pt-4 font-semibold text-sm">Meta 2026</p>
+              <Field label="Título" value={v.goalTitle} onChange={(e) => set("goalTitle", e.target.value)} />
+              <Area label="Texto" value={v.goalText} onChange={(e) => set("goalText", e.target.value)} />
+              {v.goalStats.map((s, i) => (
+                <div key={i} className="grid gap-3 rounded-lg border border-border p-3 md:grid-cols-2">
+                  <Field label={`Stat ${i + 1} — valor`} value={s.value} onChange={(e) => {
+                    const next = [...v.goalStats]; next[i] = { ...s, value: e.target.value }; set("goalStats", next);
+                  }} />
+                  <Field label={`Stat ${i + 1} — etiqueta`} value={s.label} onChange={(e) => {
+                    const next = [...v.goalStats]; next[i] = { ...s, label: e.target.value }; set("goalStats", next);
+                  }} />
+                </div>
+              ))}
+              <Area label="Texto adicional" value={v.goalExtra} onChange={(e) => set("goalExtra", e.target.value)} />
+
+              <p className="pt-4 font-semibold text-sm">STEAM Day</p>
+              <Field label="Título" value={v.steamDayTitle} onChange={(e) => set("steamDayTitle", e.target.value)} />
+              <Area label="Texto" value={v.steamDayText} onChange={(e) => set("steamDayText", e.target.value)} />
+              <Label>Items (uno por línea)</Label>
+              <Textarea rows={6} value={v.steamDayItems.join("\n")} onChange={(e) => set("steamDayItems", e.target.value.split("\n").filter(Boolean))} />
+
+              <p className="pt-4 font-semibold text-sm">Beneficiarios</p>
+              <Field label="Título" value={v.beneficiariesTitle} onChange={(e) => set("beneficiariesTitle", e.target.value)} />
+              <Area label="Texto" value={v.beneficiariesText} onChange={(e) => set("beneficiariesText", e.target.value)} />
+
+              <p className="pt-4 font-semibold text-sm">Modalidades de participación</p>
+              <Field label="Título" value={v.tiersTitle} onChange={(e) => set("tiersTitle", e.target.value)} />
+              <Area label="Texto" value={v.tiersText} onChange={(e) => set("tiersText", e.target.value)} />
+              {v.tiers.map((t, i) => (
+                <div key={i} className="grid gap-3 rounded-lg border border-border p-4 md:grid-cols-3">
+                  <Field label="Título" value={t.title} onChange={(e) => {
+                    const next = [...v.tiers]; next[i] = { ...t, title: e.target.value }; set("tiers", next);
+                  }} />
+                  <Field label="Precio" value={t.price} onChange={(e) => {
+                    const next = [...v.tiers]; next[i] = { ...t, price: e.target.value }; set("tiers", next);
+                  }} />
+                  <Field label="CTA" value={t.cta} onChange={(e) => {
+                    const next = [...v.tiers]; next[i] = { ...t, cta: e.target.value }; set("tiers", next);
+                  }} />
+                </div>
+              ))}
+              <Area label="Texto adicional" value={v.tiersExtra} onChange={(e) => set("tiersExtra", e.target.value)} />
+
+              <p className="pt-4 font-semibold text-sm">¿Qué hace posible tu aportación?</p>
+              <Field label="Título" value={v.enablesTitle} onChange={(e) => set("enablesTitle", e.target.value)} />
+              <Area label="Texto" value={v.enablesText} onChange={(e) => set("enablesText", e.target.value)} />
+              <Label>Chips (uno por línea)</Label>
+              <Textarea rows={6} value={v.enablesChips.join("\n")} onChange={(e) => set("enablesChips", e.target.value.split("\n").filter(Boolean))} />
+
+              <p className="pt-4 font-semibold text-sm">¿En qué se utilizará el recurso?</p>
+              <Field label="Título" value={v.useTitle} onChange={(e) => set("useTitle", e.target.value)} />
+              <Area label="Texto" value={v.useText} onChange={(e) => set("useText", e.target.value)} />
+              <Label>Items (uno por línea)</Label>
+              <Textarea rows={5} value={v.useItems.join("\n")} onChange={(e) => set("useItems", e.target.value.split("\n").filter(Boolean))} />
+
+              <p className="pt-4 font-semibold text-sm">Transparencia</p>
+              <Field label="Título" value={v.transparencyTitle} onChange={(e) => set("transparencyTitle", e.target.value)} />
+              <Area label="Subtítulo" value={v.transparencySubtitle} onChange={(e) => set("transparencySubtitle", e.target.value)} />
+              <Area label="Texto" value={v.transparencyText} onChange={(e) => set("transparencyText", e.target.value)} />
+              {v.transparencyCards.map((card, i) => (
+                <div key={i} className="space-y-2 rounded-lg border border-border p-4">
+                  <Field label={`Card ${i + 1} — Título`} value={card.title} onChange={(e) => {
+                    const next = [...v.transparencyCards]; next[i] = { ...card, title: e.target.value }; set("transparencyCards", next);
+                  }} />
+                  <Label>Items (uno por línea)</Label>
+                  <Textarea rows={4} value={card.items.join("\n")} onChange={(e) => {
+                    const next = [...v.transparencyCards];
+                    next[i] = { ...card, items: e.target.value.split("\n").filter(Boolean) };
+                    set("transparencyCards", next);
+                  }} />
+                </div>
+              ))}
+              <Area label="Texto final" value={v.transparencyFinal} onChange={(e) => set("transparencyFinal", e.target.value)} />
+
+              <p className="pt-4 font-semibold text-sm">Reconocimiento</p>
+              <Field label="Título" value={v.recognitionTitle} onChange={(e) => set("recognitionTitle", e.target.value)} />
+              <Area label="Texto" value={v.recognitionText} onChange={(e) => set("recognitionText", e.target.value)} />
+              <Field label="Texto del botón" value={v.recognitionCta} onChange={(e) => set("recognitionCta", e.target.value)} />
+              <Field label="URL WhatsApp empresa aliada" type="url" value={v.recognitionWhatsapp} onChange={(e) => set("recognitionWhatsapp", e.target.value)} />
+
+              <p className="pt-4 font-semibold text-sm">CTA Final + Contacto</p>
+              <Area label="Título final" value={v.finalTitle} onChange={(e) => set("finalTitle", e.target.value)} />
+              <Area label="Subtítulo final" value={v.finalSubtitle} onChange={(e) => set("finalSubtitle", e.target.value)} />
+              <div className="grid gap-3 md:grid-cols-2">
+                <Field label="Botón principal" value={v.finalPrimaryCta} onChange={(e) => set("finalPrimaryCta", e.target.value)} />
+                <Field label="Botón WhatsApp" value={v.finalWhatsappCta} onChange={(e) => set("finalWhatsappCta", e.target.value)} />
+                <Field label="Sitio web" value={v.contactWebsite} onChange={(e) => set("contactWebsite", e.target.value)} />
+                <Field label="URL Instagram" value={v.contactInstagram} onChange={(e) => set("contactInstagram", e.target.value)} />
+                <Field label="Email" value={v.contactEmail} onChange={(e) => set("contactEmail", e.target.value)} />
+                <Field label="WhatsApp (ej: 662 329 9771)" value={v.contactWhatsapp} onChange={(e) => set("contactWhatsapp", e.target.value)} />
+              </div>
             </>
           )}
         </SectionEditor>

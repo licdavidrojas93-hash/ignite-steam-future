@@ -67,6 +67,7 @@ const MercadoPagoAdmin = () => {
         production_public_key: "",
         production_access_token: "",
         webhook_secret: "",
+        site_url: DEFAULT_SITE_URL,
         is_active: true,
         notes: "",
         updated_at: new Date().toISOString(),

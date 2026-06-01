@@ -135,6 +135,76 @@ export interface NavbarContent {
   ctaUrl: string;
 }
 
+// ===== IMPULSA =====
+export interface ImpulsaTier {
+  title: string;
+  price: string;
+  cta: string;
+}
+export interface ImpulsaLandingContent {
+  badge: string;
+  title: string;
+  subtitle: string;
+  highlight: string;
+  goal: string;
+  extra: string;
+  tiers: ImpulsaTier[];
+  primaryCta: string;
+  secondaryCta: string;
+  microcopy: string;
+}
+
+export interface ImpulsaStat { value: string; label: string }
+export interface ImpulsaTransparencyCard { title: string; items: string[] }
+
+export interface ImpulsaPageContent {
+  heroTitle: string;
+  heroSubtitle: string;
+  heroExtra: string;
+  heroPrimaryCta: string;
+  heroSecondaryCta: string;
+  whatTitle: string;
+  whatText: string;
+  missionTitle: string;
+  missionText: string;
+  goalTitle: string;
+  goalText: string;
+  goalStats: ImpulsaStat[];
+  goalExtra: string;
+  steamDayTitle: string;
+  steamDayText: string;
+  steamDayItems: string[];
+  beneficiariesTitle: string;
+  beneficiariesText: string;
+  tiersTitle: string;
+  tiersText: string;
+  tiers: ImpulsaTier[];
+  tiersExtra: string;
+  enablesTitle: string;
+  enablesText: string;
+  enablesChips: string[];
+  useTitle: string;
+  useText: string;
+  useItems: string[];
+  transparencyTitle: string;
+  transparencySubtitle: string;
+  transparencyText: string;
+  transparencyCards: ImpulsaTransparencyCard[];
+  transparencyFinal: string;
+  recognitionTitle: string;
+  recognitionText: string;
+  recognitionCta: string;
+  recognitionWhatsapp: string;
+  finalTitle: string;
+  finalSubtitle: string;
+  finalPrimaryCta: string;
+  finalWhatsappCta: string;
+  contactWebsite: string;
+  contactInstagram: string;
+  contactEmail: string;
+  contactWhatsapp: string;
+}
+
 export type SiteContentMap = {
   hero: HeroContent;
   what_is_steam: WhatIsSteamContent;
@@ -145,6 +215,8 @@ export type SiteContentMap = {
   donations: DonationsContent;
   footer: FooterContent;
   navbar: NavbarContent;
+  impulsa_landing: ImpulsaLandingContent;
+  impulsa_page: ImpulsaPageContent;
 };
 
 export type SectionKey = keyof SiteContentMap;

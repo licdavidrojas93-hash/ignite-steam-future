@@ -260,6 +260,20 @@ const MercadoPagoAdmin = () => {
         </p>
       </div>
 
+      {/* Dominio del sitio en producción */}
+      <div className="space-y-3 rounded-2xl bg-card p-6 shadow-soft">
+        <Label className="text-base font-semibold">Dominio del sitio (producción)</Label>
+        <Input
+          value={row.site_url ?? ""}
+          onChange={(e) => set("site_url", e.target.value)}
+          placeholder="https://ninossteam.com"
+        />
+        <p className="text-xs text-muted-foreground">
+          Este dominio se usa para construir las URLs de retorno que Mercado Pago abre al finalizar
+          el pago. Cambia este valor si subes el sitio a otro dominio.
+        </p>
+      </div>
+
       {/* URLs */}
       <div className="space-y-4 rounded-2xl bg-primary/5 p-6 border border-primary/20">
         <h4 className="font-display text-lg font-bold">URLs para Mercado Pago</h4>
@@ -268,11 +282,19 @@ const MercadoPagoAdmin = () => {
           <strong>Mercado Pago Developers → Tus integraciones → Aplicación → Webhooks / Notificaciones → Configurar notificaciones → evento <code>payment</code></strong>.
         </p>
 
-        <UrlRow label="Webhook (notificaciones)" url={WEBHOOK_URL} />
-        <UrlRow label="Retorno: éxito" url={`${SITE_ORIGIN}/impulsa/gracias`} />
-        <UrlRow label="Retorno: pendiente" url={`${SITE_ORIGIN}/impulsa/pendiente`} />
-        <UrlRow label="Retorno: error" url={`${SITE_ORIGIN}/impulsa/error`} />
+        {(() => {
+          const base = (row.site_url || DEFAULT_SITE_URL).replace(/\/$/, "");
+          return (
+            <>
+              <UrlRow label="Webhook (notificaciones)" url={WEBHOOK_URL} />
+              <UrlRow label="Retorno: éxito" url={`${base}/impulsa/gracias`} />
+              <UrlRow label="Retorno: pendiente" url={`${base}/impulsa/pendiente`} />
+              <UrlRow label="Retorno: error" url={`${base}/impulsa/error`} />
+            </>
+          );
+        })()}
       </div>
+
 
       <div className="flex flex-wrap justify-end gap-2">
         <Button variant="outline" onClick={testConfig} disabled={testing}>

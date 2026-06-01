@@ -53,8 +53,10 @@ Deno.serve(async (req) => {
       return json({ error: `Falta Access Token de ${env}` }, 500);
     }
 
-    // 3. Build URLs
+    // 3. Build URLs — prefer the production site_url configured in admin,
+    // fallback to the request origin, then to the canonical domain.
     const siteUrl =
+      (settings.site_url as string | null)?.replace(/\/$/, "") ||
       body.origin?.replace(/\/$/, "") ||
       req.headers.get("origin")?.replace(/\/$/, "") ||
       "https://ninossteam.com";

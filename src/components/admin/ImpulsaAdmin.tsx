@@ -11,6 +11,7 @@ import { Plus, Save, Trash2, ChevronUp, ChevronDown } from "lucide-react";
 import type { ImpulsaSection, ImpulsaTier, ImpulsaContact } from "@/hooks/useImpulsa";
 import ImpulsaDashboard from "./impulsa/ImpulsaDashboard";
 import SponsorsAdmin from "./impulsa/SponsorsAdmin";
+import MercadoPagoAdmin from "./impulsa/MercadoPagoAdmin";
 
 // Cast helper for tables not yet in generated types
 const db = supabase as any;

@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
+import ImpulsaSponsorForm from "@/components/sections/ImpulsaSponsorForm";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import { useImpulsaContact } from "@/hooks/useImpulsa";
 
@@ -214,6 +215,9 @@ const Impulsa = () => {
             <p className="mt-8 text-center text-muted-foreground">{c.tiersExtra}</p>
           </div>
         </section>
+
+        {/* FORMULARIO DE PATROCINIO */}
+        <ImpulsaSponsorForm />
 
         {/* ENABLES */}
         <section className="py-16 bg-muted/30">

@@ -56,6 +56,141 @@ export type Database = {
         }
         Relationships: []
       }
+      impulsa_contact_settings: {
+        Row: {
+          contact_email: string | null
+          id: string
+          instagram_url: string | null
+          is_active: boolean
+          updated_at: string
+          website_url: string | null
+          whatsapp_message: string | null
+          whatsapp_number: string | null
+        }
+        Insert: {
+          contact_email?: string | null
+          id?: string
+          instagram_url?: string | null
+          is_active?: boolean
+          updated_at?: string
+          website_url?: string | null
+          whatsapp_message?: string | null
+          whatsapp_number?: string | null
+        }
+        Update: {
+          contact_email?: string | null
+          id?: string
+          instagram_url?: string | null
+          is_active?: boolean
+          updated_at?: string
+          website_url?: string | null
+          whatsapp_message?: string | null
+          whatsapp_number?: string | null
+        }
+        Relationships: []
+      }
+      impulsa_content_sections: {
+        Row: {
+          body: string | null
+          created_at: string
+          cta_primary_label: string | null
+          cta_primary_url: string | null
+          cta_secondary_label: string | null
+          cta_secondary_url: string | null
+          eyebrow: string | null
+          id: string
+          is_active: boolean
+          metadata: Json
+          page_location: string | null
+          section_key: string
+          section_name: string
+          sort_order: number
+          subtitle: string | null
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          cta_primary_label?: string | null
+          cta_primary_url?: string | null
+          cta_secondary_label?: string | null
+          cta_secondary_url?: string | null
+          eyebrow?: string | null
+          id?: string
+          is_active?: boolean
+          metadata?: Json
+          page_location?: string | null
+          section_key: string
+          section_name: string
+          sort_order?: number
+          subtitle?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          cta_primary_label?: string | null
+          cta_primary_url?: string | null
+          cta_secondary_label?: string | null
+          cta_secondary_url?: string | null
+          eyebrow?: string | null
+          id?: string
+          is_active?: boolean
+          metadata?: Json
+          page_location?: string | null
+          section_key?: string
+          section_name?: string
+          sort_order?: number
+          subtitle?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      impulsa_donation_tiers: {
+        Row: {
+          amount: number | null
+          created_at: string
+          cta_label: string | null
+          currency: string
+          description: string | null
+          id: string
+          is_active: boolean
+          sort_order: number
+          tier_key: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          amount?: number | null
+          created_at?: string
+          cta_label?: string | null
+          currency?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          sort_order?: number
+          tier_key: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number | null
+          created_at?: string
+          cta_label?: string | null
+          currency?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          sort_order?: number
+          tier_key?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_content: {
         Row: {
           data: Json

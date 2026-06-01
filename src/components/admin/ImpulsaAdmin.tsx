@@ -926,7 +926,7 @@ const SponsorsManager = () => {
 };
 
 // ---------------- WRAPPER ----------------
-type TabKey = "dashboard" | "sponsors" | "sections" | "tiers" | "form" | "contact";
+type TabKey = "dashboard" | "sponsors" | "sections" | "tiers" | "form" | "contact" | "mp";
 
 const ImpulsaAdmin = () => {
   const [tab, setTab] = useState<TabKey>("dashboard");
@@ -939,6 +939,7 @@ const ImpulsaAdmin = () => {
         <TabsTrigger value="tiers">Modalidades</TabsTrigger>
         <TabsTrigger value="form">Formulario</TabsTrigger>
         <TabsTrigger value="contact">Contacto</TabsTrigger>
+        <TabsTrigger value="mp">Mercado Pago</TabsTrigger>
       </TabsList>
       <TabsContent value="dashboard"><ImpulsaDashboard /></TabsContent>
       <TabsContent value="sponsors"><SponsorsAdmin /></TabsContent>
@@ -946,6 +947,7 @@ const ImpulsaAdmin = () => {
       <TabsContent value="tiers"><TiersManager /></TabsContent>
       <TabsContent value="form"><FormFieldsManager /></TabsContent>
       <TabsContent value="contact"><ContactManager /></TabsContent>
+      <TabsContent value="mp"><MercadoPagoAdmin /></TabsContent>
     </Tabs>
   );
 };

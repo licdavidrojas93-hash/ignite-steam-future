@@ -93,6 +93,7 @@ const MercadoPagoAdmin = () => {
       production_public_key: row.production_public_key,
       production_access_token: row.production_access_token,
       webhook_secret: row.webhook_secret,
+      site_url: (row.site_url || DEFAULT_SITE_URL).replace(/\/$/, ""),
       is_active: row.is_active,
       notes: row.notes,
     };

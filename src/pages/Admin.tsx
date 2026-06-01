@@ -141,12 +141,18 @@ const Admin = () => {
         <Tabs defaultValue="content">
           <TabsList className="mb-6">
             <TabsTrigger value="content">Contenido del sitio</TabsTrigger>
+            <TabsTrigger value="impulsa">IMPULSA</TabsTrigger>
             <TabsTrigger value="blog">Notas y blog</TabsTrigger>
           </TabsList>
 
           <TabsContent value="content">
             <SiteContentEditor />
           </TabsContent>
+
+          <TabsContent value="impulsa">
+            <ImpulsaAdmin />
+          </TabsContent>
+
 
           <TabsContent value="blog">
             <div className="mb-6 flex items-center justify-between">

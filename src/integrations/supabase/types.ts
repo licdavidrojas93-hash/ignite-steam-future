@@ -338,6 +338,51 @@ export type Database = {
         }
         Relationships: []
       }
+      payment_provider_settings: {
+        Row: {
+          created_at: string
+          environment: string
+          id: string
+          is_active: boolean
+          notes: string | null
+          production_access_token: string | null
+          production_public_key: string | null
+          provider: string
+          test_access_token: string | null
+          test_public_key: string | null
+          updated_at: string
+          webhook_secret: string | null
+        }
+        Insert: {
+          created_at?: string
+          environment?: string
+          id?: string
+          is_active?: boolean
+          notes?: string | null
+          production_access_token?: string | null
+          production_public_key?: string | null
+          provider?: string
+          test_access_token?: string | null
+          test_public_key?: string | null
+          updated_at?: string
+          webhook_secret?: string | null
+        }
+        Update: {
+          created_at?: string
+          environment?: string
+          id?: string
+          is_active?: boolean
+          notes?: string | null
+          production_access_token?: string | null
+          production_public_key?: string | null
+          provider?: string
+          test_access_token?: string | null
+          test_public_key?: string | null
+          updated_at?: string
+          webhook_secret?: string | null
+        }
+        Relationships: []
+      }
       site_content: {
         Row: {
           data: Json

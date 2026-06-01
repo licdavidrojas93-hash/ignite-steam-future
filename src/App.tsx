@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound.tsx";
 import AdminLogin from "./pages/AdminLogin.tsx";
 import Admin from "./pages/Admin.tsx";
 import Impulsa from "./pages/Impulsa.tsx";
+import ImpulsaReturn from "./pages/ImpulsaReturn.tsx";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,9 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/impulsa" element={<Impulsa />} />
+          <Route path="/impulsa/gracias" element={<ImpulsaReturn variant="success" />} />
+          <Route path="/impulsa/pendiente" element={<ImpulsaReturn variant="pending" />} />
+          <Route path="/impulsa/error" element={<ImpulsaReturn variant="error" />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

@@ -167,13 +167,44 @@ const ImpulsaSponsorForm = () => {
       payment_status,
     };
 
-    const { error } = await (supabase as any).from("impulsa_sponsors").insert(payload);
-    setSubmitting(false);
-    if (error) return toast.error(error.message);
+    const { data: inserted, error } = await (supabase as any)
+      .from("impulsa_sponsors")
+      .insert(payload)
+      .select("id")
+      .single();
+    if (error) {
+      setSubmitting(false);
+      return toast.error(error.message);
+    }
 
-    setDone(isInKind ? "in_kind" : "money");
+    // Monetary → create MP preference and redirect
+    if (!isInKind && inserted?.id) {
+      try {
+        const { data: pref, error: fnErr } = await supabase.functions.invoke(
+          "create-mercado-pago-preference",
+          { body: { sponsor_id: inserted.id, origin: window.location.origin } },
+        );
+        if (fnErr) throw fnErr;
+        if (!pref?.checkout_url) throw new Error("No se recibió URL de pago");
+        toast.success("Redirigiendo a Mercado Pago...");
+        window.location.href = pref.checkout_url;
+        return;
+      } catch (e) {
+        setSubmitting(false);
+        toast.error(
+          (e as Error)?.message ||
+            "No se pudo iniciar el pago. Tu registro quedó guardado y nos pondremos en contacto.",
+        );
+        return;
+      }
+    }
+
+    setSubmitting(false);
+    setDone("in_kind");
     reset();
   };
+
+
 
   const ctaMoney = "Continuar a pago";
   const ctaInKind = "Enviar información";

@@ -64,12 +64,12 @@ const ImpulsaLandingSection = () => {
             transition={{ duration: 0.6 }}
           >
             <span className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-2 text-xs font-bold uppercase tracking-wider text-primary">
-              <Sparkles className="h-3.5 w-3.5" /> {c.badge}
+              <Sparkles className="h-3.5 w-3.5" /> {badge}
             </span>
             <h2 className="mt-5 font-display text-4xl md:text-5xl font-bold leading-tight text-foreground">
-              {c.title}
+              {title}
             </h2>
-            <p className="mt-5 text-lg text-muted-foreground">{c.subtitle}</p>
+            <p className="mt-5 text-lg text-muted-foreground">{subtitle}</p>
 
             <div className="mt-6 rounded-2xl border-l-4 border-secondary bg-card/70 backdrop-blur p-5 shadow-soft">
               <p className="font-display text-xl font-bold text-foreground">
@@ -82,7 +82,8 @@ const ImpulsaLandingSection = () => {
               <p className="font-semibold text-foreground">{c.goal}</p>
             </div>
 
-            <p className="mt-5 text-muted-foreground">{c.extra}</p>
+            <p className="mt-5 text-muted-foreground">{extra}</p>
+
           </motion.div>
 
           {/* DERECHA — card */}

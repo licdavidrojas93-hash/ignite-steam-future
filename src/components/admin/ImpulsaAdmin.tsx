@@ -12,6 +12,8 @@ import type { ImpulsaSection, ImpulsaTier, ImpulsaContact } from "@/hooks/useImp
 import ImpulsaDashboard from "./impulsa/ImpulsaDashboard";
 import SponsorsAdmin from "./impulsa/SponsorsAdmin";
 import MercadoPagoAdmin from "./impulsa/MercadoPagoAdmin";
+import EmailsAdmin from "./impulsa/EmailsAdmin";
+import WallAdmin from "./impulsa/WallAdmin";
 
 // Cast helper for tables not yet in generated types
 const db = supabase as any;

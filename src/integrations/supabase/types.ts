@@ -348,6 +348,7 @@ export type Database = {
           production_access_token: string | null
           production_public_key: string | null
           provider: string
+          site_url: string
           test_access_token: string | null
           test_public_key: string | null
           updated_at: string
@@ -362,6 +363,7 @@ export type Database = {
           production_access_token?: string | null
           production_public_key?: string | null
           provider?: string
+          site_url?: string
           test_access_token?: string | null
           test_public_key?: string | null
           updated_at?: string
@@ -376,6 +378,7 @@ export type Database = {
           production_access_token?: string | null
           production_public_key?: string | null
           provider?: string
+          site_url?: string
           test_access_token?: string | null
           test_public_key?: string | null
           updated_at?: string

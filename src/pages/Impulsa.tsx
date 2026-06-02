@@ -22,6 +22,7 @@ import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
 import ImpulsaSponsorForm from "@/components/sections/ImpulsaSponsorForm";
 import SponsorsWall from "@/components/sections/SponsorsWall";
+import ImpactSection from "@/components/sections/ImpactSection";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import { useImpulsaContact } from "@/hooks/useImpulsa";
 
@@ -225,6 +226,11 @@ const Impulsa = () => {
 
         {/* MURO DE PATROCINADORES */}
         <SponsorsWall />
+
+        {/* TRANSPARENCIA E IMPACTO (DINÁMICO) */}
+        <ImpactSection />
+
+
 
 
         {/* ENABLES */}

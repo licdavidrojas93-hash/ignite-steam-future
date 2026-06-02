@@ -14,6 +14,8 @@ import SponsorsAdmin from "./impulsa/SponsorsAdmin";
 import MercadoPagoAdmin from "./impulsa/MercadoPagoAdmin";
 import EmailsAdmin from "./impulsa/EmailsAdmin";
 import WallAdmin from "./impulsa/WallAdmin";
+import ImpactAdmin from "./impulsa/ImpactAdmin";
+import IntegrationTests from "./impulsa/IntegrationTests";
 
 // Cast helper for tables not yet in generated types
 const db = supabase as any;
@@ -933,6 +935,8 @@ type TabKey =
   | "sponsors"
   | "wall"
   | "emails"
+  | "impact"
+  | "tests"
   | "sections"
   | "tiers"
   | "form"
@@ -947,22 +951,26 @@ const ImpulsaAdmin = () => {
         <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
         <TabsTrigger value="sponsors">Patrocinios IMPULSA</TabsTrigger>
         <TabsTrigger value="wall">Muro de patrocinadores</TabsTrigger>
+        <TabsTrigger value="impact">Transparencia e impacto</TabsTrigger>
         <TabsTrigger value="emails">Correos</TabsTrigger>
         <TabsTrigger value="sections">Secciones</TabsTrigger>
         <TabsTrigger value="tiers">Modalidades</TabsTrigger>
         <TabsTrigger value="form">Formulario</TabsTrigger>
         <TabsTrigger value="contact">Contacto</TabsTrigger>
         <TabsTrigger value="mp">Mercado Pago</TabsTrigger>
+        <TabsTrigger value="tests">Pruebas de integración</TabsTrigger>
       </TabsList>
       <TabsContent value="dashboard"><ImpulsaDashboard /></TabsContent>
       <TabsContent value="sponsors"><SponsorsAdmin /></TabsContent>
       <TabsContent value="wall"><WallAdmin /></TabsContent>
+      <TabsContent value="impact"><ImpactAdmin /></TabsContent>
       <TabsContent value="emails"><EmailsAdmin /></TabsContent>
       <TabsContent value="sections"><SectionsManager /></TabsContent>
       <TabsContent value="tiers"><TiersManager /></TabsContent>
       <TabsContent value="form"><FormFieldsManager /></TabsContent>
       <TabsContent value="contact"><ContactManager /></TabsContent>
       <TabsContent value="mp"><MercadoPagoAdmin /></TabsContent>
+      <TabsContent value="tests"><IntegrationTests /></TabsContent>
     </Tabs>
   );
 };

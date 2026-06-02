@@ -129,12 +129,19 @@ const ImpulsaLandingSection = () => {
                 {primaryCta} <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
+                to="/impulsa#formulario"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent/20 px-6 py-4 font-bold text-foreground transition hover:bg-accent hover:text-foreground"
+              >
+                Otra aportación <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
                 to={secondaryUrl}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-primary px-6 py-4 font-bold text-primary transition hover:bg-primary hover:text-primary-foreground"
               >
                 {secondaryCta}
               </Link>
             </div>
+
 
 
             <p className="mt-4 text-center text-xs text-muted-foreground">{c.microcopy}</p>

@@ -362,8 +362,8 @@ export const DEFAULTS: SiteContentMap = {
     copyright: "Niños STEAM. Todos los derechos reservados.",
   },
   navbar: {
-    ctaText: "Donar ahora",
-    ctaUrl: "https://www.paypal.com/donate/?hosted_button_id=NUN5PLXX6JAUS",
+    ctaText: "Súmate a IMPULSA",
+    ctaUrl: "/impulsa#patrocinar",
   },
   impulsa_landing: {
     badge: "IMPULSA por Niñ@s STEAM",

@@ -559,13 +559,6 @@ export type Database = {
       }
     }
     Views: {
-      impulsa_public_stats: {
-        Row: {
-          sponsors_count: number | null
-          total_raised: number | null
-        }
-        Relationships: []
-      }
       public_impulsa_sponsors_wall: {
         Row: {
           created_at: string | null
@@ -592,7 +585,13 @@ export type Database = {
       }
     }
     Functions: {
-      [_ in never]: never
+      get_impulsa_public_stats: {
+        Args: never
+        Returns: {
+          sponsors_count: number
+          total_raised: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

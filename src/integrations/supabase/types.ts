@@ -305,6 +305,90 @@ export type Database = {
         }
         Relationships: []
       }
+      impulsa_impact_settings: {
+        Row: {
+          beneficiaries_override: number | null
+          experiences_override: number | null
+          goal_amount: number | null
+          goal_currency: string | null
+          id: string
+          show_beneficiaries: boolean
+          show_experiences: boolean
+          show_goal_progress: boolean
+          show_sponsors_count: boolean
+          show_steam_days: boolean
+          show_total_raised: boolean
+          steam_days_override: number | null
+          updated_at: string
+        }
+        Insert: {
+          beneficiaries_override?: number | null
+          experiences_override?: number | null
+          goal_amount?: number | null
+          goal_currency?: string | null
+          id?: string
+          show_beneficiaries?: boolean
+          show_experiences?: boolean
+          show_goal_progress?: boolean
+          show_sponsors_count?: boolean
+          show_steam_days?: boolean
+          show_total_raised?: boolean
+          steam_days_override?: number | null
+          updated_at?: string
+        }
+        Update: {
+          beneficiaries_override?: number | null
+          experiences_override?: number | null
+          goal_amount?: number | null
+          goal_currency?: string | null
+          id?: string
+          show_beneficiaries?: boolean
+          show_experiences?: boolean
+          show_goal_progress?: boolean
+          show_sponsors_count?: boolean
+          show_steam_days?: boolean
+          show_total_raised?: boolean
+          steam_days_override?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      impulsa_impact_updates: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_public: boolean
+          media_url: string | null
+          sort_order: number
+          title: string | null
+          update_type: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_public?: boolean
+          media_url?: string | null
+          sort_order?: number
+          title?: string | null
+          update_type?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_public?: boolean
+          media_url?: string | null
+          sort_order?: number
+          title?: string | null
+          update_type?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       impulsa_sponsors: {
         Row: {
           admin_notes: string | null
@@ -475,6 +559,13 @@ export type Database = {
       }
     }
     Views: {
+      impulsa_public_stats: {
+        Row: {
+          sponsors_count: number | null
+          total_raised: number | null
+        }
+        Relationships: []
+      }
       public_impulsa_sponsors_wall: {
         Row: {
           created_at: string | null

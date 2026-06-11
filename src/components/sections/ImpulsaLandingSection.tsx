@@ -128,7 +128,6 @@ const ImpulsaLandingSection = () => {
               >
                 {primaryCta} <ArrowRight className="h-4 w-4" />
               </Link>
-              </Link>
               <Link
                 to={secondaryUrl}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-primary px-6 py-4 font-bold text-primary transition hover:bg-primary hover:text-primary-foreground"

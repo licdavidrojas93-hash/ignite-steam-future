@@ -42,7 +42,7 @@ const ImpulsaLandingSection = () => {
   const subtitle = landingOverride?.subtitle || c.subtitle;
   const extra = landingOverride?.body || c.extra;
   const primaryCta = landingOverride?.cta_primary_label || c.primaryCta;
-  const primaryUrl = landingOverride?.cta_primary_url || "/impulsa#patrocinar";
+  const primaryUrl = landingOverride?.cta_primary_url || "/impulsa";
   const secondaryCta = landingOverride?.cta_secondary_label || c.secondaryCta;
   const secondaryUrl = landingOverride?.cta_secondary_url || "/impulsa";
 

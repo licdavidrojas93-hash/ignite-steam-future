@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Users, MapPin, Clock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import heroImg from "@/assets/hero-kids.jpg";
 import { useSiteContent } from "@/hooks/useSiteContent";
 
 const Hero = () => {
   const c = useSiteContent("hero");
+  const navigate = useNavigate();
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });

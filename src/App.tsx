@@ -34,7 +34,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
+        <ScrollToTop />
           <Route path="/" element={<Index />} />
           <Route path="/impulsa" element={<Impulsa />} />
           <Route path="/impulsa/gracias" element={<ImpulsaReturn variant="success" />} />

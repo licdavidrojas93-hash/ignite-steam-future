@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,6 +10,21 @@ import AdminLogin from "./pages/AdminLogin.tsx";
 import Admin from "./pages/Admin.tsx";
 import Impulsa from "./pages/Impulsa.tsx";
 import ImpulsaReturn from "./pages/ImpulsaReturn.tsx";
+
+const ScrollToTop = () => {
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (hash) {
+      const el = document.getElementById(hash.replace("#", ""));
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 80);
+        return;
+      }
+    }
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [pathname, hash]);
+  return null;
+};
 
 const queryClient = new QueryClient();
 

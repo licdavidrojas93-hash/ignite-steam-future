@@ -42,7 +42,7 @@ const ImpulsaLandingSection = () => {
   const subtitle = landingOverride?.subtitle || c.subtitle;
   const extra = landingOverride?.body || c.extra;
   const primaryCta = landingOverride?.cta_primary_label || c.primaryCta;
-  const primaryUrl = landingOverride?.cta_primary_url || "/impulsa#patrocinar";
+  const primaryUrl = landingOverride?.cta_primary_url || "/impulsa";
   const secondaryCta = landingOverride?.cta_secondary_label || c.secondaryCta;
   const secondaryUrl = landingOverride?.cta_secondary_url || "/impulsa";
 
@@ -127,12 +127,6 @@ const ImpulsaLandingSection = () => {
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-secondary px-6 py-4 font-bold text-white shadow-playful transition hover:scale-[1.02] hover:bg-accent hover:text-foreground"
               >
                 {primaryCta} <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                to="/impulsa#formulario"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent/20 px-6 py-4 font-bold text-foreground transition hover:bg-accent hover:text-foreground"
-              >
-                Otra aportación <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 to={secondaryUrl}

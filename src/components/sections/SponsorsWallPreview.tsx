@@ -21,7 +21,7 @@ const SponsorsWallPreview = () => {
             </p>
           </div>
           <Link
-            to="/impulsa#muro"
+            to="/impulsa"
             className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
           >
             Ver muro completo <ArrowRight className="h-4 w-4" />
@@ -40,7 +40,7 @@ const SponsorsWallPreview = () => {
               Muy pronto aparecerán aquí las personas, familias, empresas e instituciones que se sumen a IMPULSA.
             </p>
             <Link
-              to="/impulsa#patrocinar"
+              to="/impulsa"
               className="mt-5 inline-flex items-center gap-2 rounded-full bg-secondary px-6 py-3 font-bold text-white shadow-playful transition hover:scale-105 hover:bg-accent hover:text-foreground"
             >
               Sé el primero en sumarte <ArrowRight className="h-4 w-4" />

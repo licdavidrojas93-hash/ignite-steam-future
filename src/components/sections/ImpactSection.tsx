@@ -137,7 +137,7 @@ const ImpactSection = () => {
 
         {/* Métricas */}
         {metrics.length > 0 && (
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
             {metrics.map((m, i) => (
               <motion.div
                 key={m.label}
@@ -145,7 +145,7 @@ const ImpactSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.07 }}
-                className="rounded-2xl bg-card p-5 text-center shadow-soft"
+                className="w-full sm:w-56 rounded-2xl bg-card p-5 text-center shadow-soft"
               >
                 <m.icon className="mx-auto h-7 w-7 text-primary" />
                 <p className="mt-3 font-display text-2xl font-bold">{m.value}</p>

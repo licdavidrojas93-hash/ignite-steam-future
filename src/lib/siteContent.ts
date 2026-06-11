@@ -363,7 +363,7 @@ export const DEFAULTS: SiteContentMap = {
   },
   navbar: {
     ctaText: "Súmate a IMPULSA",
-    ctaUrl: "/impulsa#patrocinar",
+    ctaUrl: "/impulsa",
   },
   impulsa_landing: {
     badge: "IMPULSA por Niñ@s STEAM",

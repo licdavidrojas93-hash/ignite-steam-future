@@ -26,9 +26,13 @@ const Navbar = () => {
   const handleNav = (href: string) => {
     setOpen(false);
     const id = href.replace("#", "");
+    // IMPULSA siempre va a la página /impulsa desde el inicio (top)
+    if (id === "impulsa") {
+      navigate("/impulsa");
+      return;
+    }
     if (location.pathname !== "/") {
       navigate(`/${href}`);
-      // Scroll después del cambio de ruta
       setTimeout(() => {
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
       }, 150);

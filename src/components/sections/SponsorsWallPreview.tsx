@@ -21,7 +21,7 @@ const SponsorsWallPreview = () => {
             </p>
           </div>
           <Link
-            to="/impulsa#muro"
+            to="/impulsa"
             className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
           >
             Ver muro completo <ArrowRight className="h-4 w-4" />

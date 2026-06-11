@@ -41,7 +41,7 @@ const Hero = () => {
             <Button
               size="lg"
               className="bg-secondary hover:bg-accent hover:text-foreground text-white font-bold text-base px-8 py-6 rounded-full shadow-playful transition-all duration-300 hover:scale-105"
-              onClick={() => scrollTo("donaciones")}
+              onClick={() => navigate("/impulsa")}
             >
               {c.ctaPrimary} <ArrowRight className="ml-2 h-5 w-5" />
             </Button>

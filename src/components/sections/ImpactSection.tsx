@@ -137,7 +137,7 @@ const ImpactSection = () => {
 
         {/* Métricas */}
         {metrics.length > 0 && (
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
             {metrics.map((m, i) => (
               <motion.div
                 key={m.label}

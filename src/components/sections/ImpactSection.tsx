@@ -145,7 +145,7 @@ const ImpactSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.07 }}
-                className="rounded-2xl bg-card p-5 text-center shadow-soft"
+                className="w-full sm:w-56 rounded-2xl bg-card p-5 text-center shadow-soft"
               >
                 <m.icon className="mx-auto h-7 w-7 text-primary" />
                 <p className="mt-3 font-display text-2xl font-bold">{m.value}</p>
